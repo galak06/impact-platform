@@ -1,1 +1,109 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"fe86f2d2b7a869e3a691d34dd52c7913feba065a"}}
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Impact Platform – כניסה</title>
+<style>
+:root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e}
+[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.header-left{display:flex;align-items:center;gap:1rem}
+.logo{font-size:1.25rem;font-weight:700}.logo span{color:var(--gold)}
+.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem}
+.main{max-width:900px;margin:0 auto;padding:3rem 1.5rem;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero{text-align:center;margin-bottom:3rem}
+.hero h1{font-size:2.2rem;font-weight:800;margin-bottom:.75rem;background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.05rem;color:var(--muted);max-width:480px;margin:0 auto 1.5rem;line-height:1.6}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap}
+.hs{text-align:center}.hs strong{display:block;font-size:1.8rem;font-weight:800;color:var(--blue)}.hs span{font-size:.82rem;color:var(--muted)}
+.entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;width:100%;max-width:700px}
+.entry-card{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:2.5rem 2rem;cursor:pointer;transition:all .25s ease;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center}
+.entry-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.13)}
+.entry-card.client{border-top:5px solid var(--teal)}
+.entry-card.admin{border-top:5px solid var(--gold)}
+.entry-card:hover.client{border-color:var(--teal);box-shadow:0 12px 32px rgba(13,124,102,.2)}
+.entry-card:hover.admin{border-color:var(--gold);box-shadow:0 12px 32px rgba(232,160,32,.2)}
+.entry-icon{font-size:3rem}
+.entry-title{font-size:1.3rem;font-weight:800}
+.entry-sub{font-size:.88rem;color:var(--muted);line-height:1.5}
+.entry-btn{margin-top:.5rem;padding:.6rem 1.5rem;border-radius:8px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s}
+.entry-card.client .entry-btn{background:var(--teal);color:#fff}
+.entry-card.admin .entry-btn{background:var(--gold);color:#1e2740}
+.entry-links{display:flex;flex-direction:column;gap:.35rem;width:100%;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)}
+.entry-link{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.entry-link::before{content:'•';color:inherit}
+.toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-info{background:#1a3a5c}
+@media(max-width:600px){.entry-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div style="display:flex;align-items:center;gap:1.5rem">
+    <span style="color:rgba(255,255,255,.6);font-size:.85rem">מערכת ניהול אימפקט חברתי</span>
+  </div>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="hero">
+    <h1>פלטפורמת האימפקט</h1>
+    <p>מדידת ערך חברתי בזמן אמת לארגונים המשקיעים באימפקט — סדנאות, מדדים ודוחות במקום אחד</p>
+    <div class="hero-stats">
+      <div class="hs"><strong>3.9x</strong><span>יחס SROI</span></div>
+      <div class="hs"><strong>1,240</strong><span>ילדים</span></div>
+      <div class="hs"><strong>38</strong><span>סדנאות פעילות</span></div>
+      <div class="hs"><strong>24</strong><span>ספקים מאושרים</span></div>
+    </div>
+  </div>
+
+  <div class="entry-grid">
+    <a href="client.html" class="entry-card client">
+      <div class="entry-icon">🏙️</div>
+      <div class="entry-title">כניסת לקוח</div>
+      <div class="entry-sub">עיריות וגופים ציבוריים — צפו בנתונים, בחרו סדנאות וגשו לדוחות</div>
+      <button class="entry-btn">כניסה לפורטל לקוח →</button>
+      <div class="entry-links">
+        <span class="entry-link">מדדי אימפקט ו-SROI</span>
+        <span class="entry-link">בחירת סדנאות והזמנות</span>
+        <span class="entry-link">דוחות ESG אישיים</span>
+      </div>
+    </a>
+
+    <a href="admin.html" class="entry-card admin">
+      <div class="entry-icon">⚙️</div>
+      <div class="entry-title">כניסת מנהל</div>
+      <div class="entry-sub">צוות הניהול — נהלו ספקים, אשרו סדנאות ופקחו על הפעילות</div>
+      <button class="entry-btn">כניסה לממשק ניהול →</button>
+      <div class="entry-links">
+        <span class="entry-link">ניהול ואישור ספקים</span>
+        <span class="entry-link">תזמון ואישור סדנאות</span>
+        <span class="entry-link">הערכת ספקים (צ'קליסט)</span>
+      </div>
+    </a>
+  </div>
+</main>
+
+<script>
+(function(){
+  const s=localStorage.getItem('theme')||'light';
+  document.documentElement.setAttribute('data-theme',s);
+  document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';
+})();
+document.getElementById('themeBtn').addEventListener('click',function(){
+  const c=document.documentElement.getAttribute('data-theme');
+  const n=c==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',n);
+  localStorage.setItem('theme',n);
+  this.textContent=n==='dark'?'☀️':'🌙';
+});
+</script>
+</body>
+</html>

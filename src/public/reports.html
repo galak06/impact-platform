@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>דוחות ESG | ImpactPlatform</title>
+<style>
+:root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
+[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);transition:background .3s,color .3s;}
+header{position:sticky;top:0;z-index:100;background:var(--blue);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+nav{display:flex;gap:1rem;}
+nav a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.88rem;font-weight:600;padding:.4rem .6rem;border-radius:6px;transition:color .2s;}
+nav a:hover{color:#fff;}
+nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
+.header-left{display:flex;align-items:center;gap:1rem;}
+.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+.logo{color:#fff;font-size:1.15rem;font-weight:800;}
+.logo span{color:var(--gold);}
+.page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.client-banner{background:linear-gradient(135deg,#1a3a5c,#0d7c66);color:#fff;border-radius:10px;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;}
+.cb-info{display:flex;flex-direction:column;gap:.15rem;}
+.cb-name{font-size:.95rem;font-weight:700;}
+.cb-period{font-size:.8rem;opacity:.8;}
+.cb-badge{font-size:.72rem;font-weight:700;background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:20px;}
+.page-title{font-size:1.6rem;font-weight:900;margin-bottom:.3rem;}
+.page-subtitle{font-size:.9rem;color:var(--muted);margin-bottom:1.5rem;}
+.sroi-card{background:linear-gradient(135deg,#1a3a5c,#0d7c66);color:#fff;border-radius:12px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.sroi-num{font-size:3rem;font-weight:900;color:var(--gold);line-height:1;}
+.sroi-label{font-size:.95rem;font-weight:700;margin:.25rem 0;}
+.sroi-sub{font-size:.82rem;opacity:.8;}
+.sroi-stats{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.ss{text-align:center;}.ss strong{display:block;font-size:1.3rem;font-weight:800;}.ss span{font-size:.78rem;opacity:.8;}
+.reports-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.report-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;display:flex;align-items:center;gap:1rem;transition:all .25s ease;}
+.report-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1);}
+.report-icon{font-size:2rem;flex-shrink:0;}
+.report-info{flex:1;}
+.report-title{font-size:.92rem;font-weight:700;margin-bottom:.2rem;}
+.report-meta{font-size:.78rem;color:var(--muted);}
+.report-date{font-size:.75rem;color:var(--muted);margin-top:.2rem;}
+.report-actions{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0;}
+.report-badge{font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:20px;}
+.report-badge.ready{background:#e8f5f1;color:#0d7c66;}
+.report-badge.pending{background:#fff3e0;color:#e8a020;}
+.btn-sm-r{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:.35rem .85rem;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-sm-r:hover{background:#0f2740;}
+.export-box{background:#fff9ec;border:1px solid #f0d48a;border-radius:12px;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.export-box strong{display:block;margin-bottom:.25rem;}
+.export-box p{font-size:.85rem;color:#7a5700;}
+.btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:.55rem 1.2rem;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(60px);background:#1e2740;color:#fff;padding:.65rem 1.4rem;border-radius:8px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.info{background:var(--blue);}
+.toast.success{background:var(--teal);}
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="index.html">בית</a>
+    <a href="dashboard.html">מדדי אימפקט</a>
+    <a href="goals.html">יעדים</a>
+    <a href="order.html">סדנאות</a>
+    <a href="reports.html" class="active">דוחות</a>
+    <a href="map.html">מפת אימפקט</a>
+    <a href="client.html">פורטל לקוח</a>
+  </nav>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="client-banner">
+    <div class="cb-info">
+      <span class="cb-name">🏢 שם הלקוח</span>
+      <span class="cb-period">Q2 2026 · חוזה פעיל עד דצמבר 2026</span>
+    </div>
+    <span class="cb-badge">לקוח פעיל</span>
+  </div>
+
+  <div class="page-title">דוחות ESG</div>
+  <div class="page-subtitle">דוחות אחריות חברתית ומדידת ערך חברתי לפי תקן GRI 203</div>
+
+  <div class="sroi-card">
+    <div class="sroi-left">
+      <div class="sroi-num">3.9x</div>
+      <div class="sroi-label">יחס SROI — Q2 2026</div>
+      <div class="sroi-sub">על כל ₪1 שהושקע נוצרו ₪3.9 של ערך חברתי</div>
+    </div>
+    <div class="sroi-stats">
+      <div class="ss"><strong>₪480K</strong><span>השקעה</span></div>
+      <div class="ss"><strong>₪1.87M</strong><span>ערך חברתי</span></div>
+      <div class="ss"><strong>1,240</strong><span>ילדים</span></div>
+      <div class="ss"><strong>9,680</strong><span>שעות פנאי</span></div>
+    </div>
+  </div>
+
+  <div class="reports-grid">
+    <div class="report-card">
+      <div class="report-icon">📊</div>
+      <div class="report-info">
+        <div class="report-title">דוח SROI רבעוני — Q2 2026</div>
+        <div class="report-meta">מתודולוגיית Social Value International · GRI 203</div>
+        <div class="report-date">הופק: 20 יוני 2026</div>
+      </div>
+      <div class="report-actions">
+        <span class="report-badge ready">מוכן</span>
+        <button class="btn-sm-r" onclick="downloadReport('SROI Q2 2026')">הורד PDF</button>
+      </div>
+    </div>
+    <div class="report-card">
+      <div class="report-icon">📋</div>
+      <div class="report-info">
+        <div class="report-title">דוח פעילות סדנאות — יוני 2026</div>
+        <div class="report-meta">סיכום סדנאות ומשתתפים</div>
+        <div class="report-date">הופק: 15 יוני 2026</div>
+      </div>
+      <div class="report-actions">
+        <span class="report-badge ready">מוכן</span>
+        <button class="btn-sm-r" onclick="downloadReport('פעילות סדנאות יוני 2026')">הורד PDF</button>
+      </div>
+    </div>
+    <div class="report-card">
+      <div class="report-icon">🌱</div>
+      <div class="report-info">
+        <div class="report-title">דוח ESG שנתי — 2025</div>
+        <div class="report-meta">קיימות ואחריות חברתית</div>
+        <div class="report-date">הופק: 1 ינואר 2026</div>
+      </div>
+      <div class="report-actions">
+        <span class="report-badge ready">מוכן</span>
+        <button class="btn-sm-r" onclick="downloadReport('ESG שנתי 2025')">הורד PDF</button>
+      </div>
+    </div>
+    <div class="report-card">
+      <div class="report-icon">⏳</div>
+      <div class="report-info">
+        <div class="report-title">דוח SROI רבעוני — Q3 2026</div>
+        <div class="report-meta">בהכנה</div>
+        <div class="report-date">צפוי: ספטמבר 2026</div>
+      </div>
+      <div class="report-actions">
+        <span class="report-badge pending">בהכנה</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="export-box">
+    <div>
+      <strong>ייצוא מותאם אישית</strong>
+      <p>ייצא נתונים לפורמט GRI 203, UN SDGs, או Excel לדוח ESG של הארגון שלך</p>
+    </div>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <button class="btn" onclick="showToast('מייצא דוח GRI 203...','info')">GRI 203</button>
+      <button class="btn" onclick="showToast('מייצא נתוני UN SDGs...','info')">UN SDGs</button>
+      <button class="btn" onclick="showToast('מייצא לאקסל...','success')">Excel ↓</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const t=document.getElementById('themeBtn'),b=document.body;
+(function(){const s=localStorage.getItem('theme');if(s){b.setAttribute('data-theme',s);t.textContent=s==='dark'?'☀️':'🌙';}})();
+t.addEventListener('click',()=>{const d=b.getAttribute('data-theme')==='dark';b.setAttribute('data-theme',d?'light':'dark');localStorage.setItem('theme',d?'light':'dark');t.textContent=d?'🌙':'☀️';});
+let toastTimer;
+function showToast(msg,type='info'){const el=document.getElementById('toast');el.textContent=msg;el.className='toast '+type+' show';clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
+function downloadReport(name){showToast('מוריד: '+name+'...','success');}
+</script>
+</body>
+</html>

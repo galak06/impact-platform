@@ -1,1 +1,165 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"ecd96c50c858ef35cc4470ed020207d821482677"}}
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ניהול – ImpactPlatform</title>
+<style>
+:root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
+[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);}
+header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+.header-left{display:flex;align-items:center;gap:1rem;}
+.logo{font-size:1.25rem;font-weight:700;}.logo span{color:var(--gold);}
+.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem;line-height:1;}
+header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start:1.5rem;font-size:.9rem;transition:color .2s;}
+header nav a:hover,header nav a.active{color:#fff;}
+header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
+.page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.admin-tabs{display:flex;gap:0;margin-bottom:1.5rem;border-bottom:2px solid var(--border);}
+.admin-tab{background:none;border:none;padding:.7rem 1.5rem;font-size:.95rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.admin-tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.admin-tab-panel{display:none;}.admin-tab-panel.active{display:block;}
+.toolbar{display:flex;gap:1rem;margin-bottom:1.5rem;align-items:center;}
+.search-input{border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-size:.9rem;flex:1;background:var(--white);color:var(--text);outline:none;}
+.search-input:focus{border-color:var(--teal);}
+.btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:.6rem 1.2rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s ease;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .25s ease;}
+table{width:100%;border-collapse:collapse;font-size:.9rem;}
+th{text-align:right;padding:.75rem 1rem;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+td{padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text);}
+tr:hover td{background:rgba(26,58,92,.04);}
+.badge{font-size:.75rem;font-weight:700;padding:.25rem .7rem;border-radius:20px;}
+.badge-active{background:#e8f5f1;color:#0d7c66;}.badge-pending{background:#fff3e0;color:#e8a020;}
+.ws-planned{background:#e8ecf4;color:var(--blue);}.ws-approved{background:#e8f5f1;color:var(--teal);}
+.ws-done{background:#f0f4fa;color:var(--muted);}.ws-pending{background:#fff3e0;color:var(--gold);}
+.ws-cancelled{background:#fff0f0;color:var(--red);}
+.actions{display:flex;gap:.5rem;}
+.btn-sm{padding:.3rem .75rem;font-size:.8rem;border-radius:6px;border:none;cursor:pointer;font-weight:600;transition:all .2s ease;}
+.btn-sm:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.btn-success{background:#1a9c6e;color:#fff;}.btn-warn{background:#e8a020;color:#1e2740;}.btn-danger{background:#d94f4f;color:#fff;}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skeleton{background:linear-gradient(90deg,#e0e5f0 25%,#f0f4fa 50%,#e0e5f0 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:48px;margin-bottom:.5rem;}
+#table-content{transition:opacity .4s ease;}
+.toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-success{background:#1a9c6e;}.toast-info{background:#1a3a5c;}.toast-warning{background:#e8a020;color:#1e2740;}.toast-error{background:#d94f4f;}
+#eval-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:1000;}
+#eval-modal{background:var(--white);border-radius:16px;padding:2rem;width:min(520px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.eval-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.eval-header h2{font-size:1.1rem;font-weight:700;}
+.eval-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1;}
+.eval-progress{margin-bottom:1.5rem;}
+#eval-score{font-size:.85rem;color:var(--muted);display:block;margin-bottom:.4rem;}
+.progress-bar{background:var(--border);border-radius:8px;height:8px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:8px;transition:width .3s,background .3s;}
+.check-item{display:flex;align-items:center;gap:.75rem;padding:.7rem .5rem;border-bottom:1px solid var(--border);cursor:pointer;font-size:.9rem;}
+.check-item:last-child{border-bottom:none;}.check-item input{width:18px;height:18px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;}
+.check-label{flex:1;}.req-badge{font-size:.7rem;font-weight:700;background:#fff0f0;color:var(--red);padding:.15rem .45rem;border-radius:10px;}
+.check-item.required .check-label{font-weight:500;}
+.eval-footer{display:flex;gap:.75rem;margin-top:1.5rem;justify-content:flex-end;}
+.btn-outline{background:none;border:2px solid var(--border);color:var(--text);}.btn-eval{background:#e8ecf4;color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="index.html">בית</a>
+    <a href="dashboard.html">מדדי אימפקט</a>
+    <a href="goals.html">יעדים</a>
+    <a href="order.html">הזמנות</a>
+    <a href="admin.html" class="active">ניהול</a>
+  </nav>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
+</header>
+<div class="page">
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="suppliers" onclick="switchTab('suppliers')">ספקים</button>
+    <button class="admin-tab" data-tab="workshops" onclick="switchTab('workshops')">סדנאות</button>
+  </div>
+  <div class="admin-tab-panel active" id="panel-suppliers">
+    <div class="toolbar">
+      <input class="search-input" type="text" placeholder="חיפוש ספק..." oninput="filterTable(this.value)">
+      <button class="btn" onclick="showToast('מוסיף ספק חדש...','info')">+ הוסף ספק</button>
+    </div>
+    <div class="card" id="table-wrap">
+      <div id="skeleton-zone">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+      <div id="table-content" style="opacity:0">
+        <table>
+          <thead><tr><th>ספק</th><th>קטגוריה</th><th>סטטוס</th><th>מאז</th><th>פעולות</th></tr></thead>
+          <tbody id="supplier-body">
+            <tr data-id="1"><td><strong>מרכז יצירה תל אביב</strong></td><td>יצירה ואמנות</td><td><span class="badge badge-active" id="status-1">פעיל</span></td><td>ינואר 2025</td><td class="actions"><button class="btn btn-sm btn-eval" onclick="openEval(1,'מרכז יצירה תל אביב')">הערכה</button><button class="btn btn-sm btn-success" onclick="approveSupplier(1)">אשר</button><button class="btn btn-sm btn-warn" onclick="suspendSupplier(1)">השהה</button><button class="btn btn-sm btn-danger" onclick="deleteSupplier(1)">מחק</button></td></tr>
+            <tr data-id="2"><td><strong>אקדמיה ספורטיבית</strong></td><td>ספורט ותנועה</td><td><span class="badge badge-active" id="status-2">פעיל</span></td><td>פברואר 2025</td><td class="actions"><button class="btn btn-sm btn-eval" onclick="openEval(2,'אקדמיה ספורטיבית')">הערכה</button><button class="btn btn-sm btn-success" onclick="approveSupplier(2)">אשר</button><button class="btn btn-sm btn-warn" onclick="suspendSupplier(2)">השהה</button><button class="btn btn-sm btn-danger" onclick="deleteSupplier(2)">מחק</button></td></tr>
+            <tr data-id="3"><td><strong>מגמת קוד</strong></td><td>טכנולוגיה</td><td><span class="badge badge-pending" id="status-3">ממתין</span></td><td>מרץ 2025</td><td class="actions"><button class="btn btn-sm btn-eval" onclick="openEval(3,'מגמת קוד')">הערכה</button><button class="btn btn-sm btn-success" onclick="approveSupplier(3)">אשר</button><button class="btn btn-sm btn-warn" onclick="suspendSupplier(3)">השהה</button><button class="btn btn-sm btn-danger" onclick="deleteSupplier(3)">מחק</button></td></tr>
+            <tr data-id="4"><td><strong>גן טבע ירושלים</strong></td><td>חינוך סביבתי</td><td><span class="badge badge-active" id="status-4">פעיל</span></td><td>אפריל 2025</td><td class="actions"><button class="btn btn-sm btn-eval" onclick="openEval(4,'גן טבע ירושלים')">הערכה</button><button class="btn btn-sm btn-success" onclick="approveSupplier(4)">אשר</button><button class="btn btn-sm btn-warn" onclick="suspendSupplier(4)">השהה</button><button class="btn btn-sm btn-danger" onclick="deleteSupplier(4)">מחק</button></td></tr>
+            <tr data-id="5"><td><strong>סטודיו מוזיקלי</strong></td><td>מוזיקה</td><td><span class="badge badge-pending" id="status-5">ממתין</span></td><td>מאי 2025</td><td class="actions"><button class="btn btn-sm btn-eval" onclick="openEval(5,'סטודיו מוזיקלי')">הערכה</button><button class="btn btn-sm btn-success" onclick="approveSupplier(5)">אשר</button><button class="btn btn-sm btn-warn" onclick="suspendSupplier(5)">השהה</button><button class="btn btn-sm btn-danger" onclick="deleteSupplier(5)">מחק</button></td></tr>
+            <tr data-id="6"><td><strong>חווית הספר</strong></td><td>תרבות וקריאה</td><td><span class="badge badge-active" id="status-6">פעיל</span></td><td>יוני 2025</td><td class="actions"><button class="btn btn-sm btn-eval" onclick="openEval(6,'חווית הספר')">הערכה</button><button class="btn btn-sm btn-success" onclick="approveSupplier(6)">אשר</button><button class="btn btn-sm btn-warn" onclick="suspendSupplier(6)">השהה</button><button class="btn btn-sm btn-danger" onclick="deleteSupplier(6)">מחק</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="admin-tab-panel" id="panel-workshops">
+    <div class="toolbar">
+      <input class="search-input" type="text" placeholder="חיפוש סדנה..." oninput="filterWorkshops(this.value)">
+      <button class="btn" onclick="showToast('מוסיף סדנה חדשה...','info')">+ הוסף סדנה</button>
+    </div>
+    <div class="card">
+      <div id="ws-skeleton-zone"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+      <div id="ws-content" style="opacity:0">
+        <table>
+          <thead><tr><th>#</th><th>ספק</th><th>תאריך</th><th>סוג</th><th>ילדים</th><th>סטטוס</th><th>פעולות</th></tr></thead>
+          <tbody id="workshops-body">
+            <tr><td><strong>WS-001</strong></td><td>מרכז יצירה ת"א</td><td>25.06.26</td><td>יצירה</td><td>48</td><td><span class="badge ws-planned" id="ws-status-1">מתוכנן</span></td><td class="actions"><button class="btn btn-sm btn-success" onclick="approveWorkshop(1)">אשר</button><button class="btn btn-sm btn-danger" onclick="cancelWorkshop(1)">בטל</button></td></tr>
+            <tr><td><strong>WS-002</strong></td><td>אקדמיה ספורטיבית</td><td>22.06.26</td><td>ספורט</td><td>62</td><td><span class="badge ws-approved" id="ws-status-2">מאושר</span></td><td class="actions"><button class="btn btn-sm btn-success" onclick="executeWorkshop(2)">בצע</button><button class="btn btn-sm btn-danger" onclick="cancelWorkshop(2)">בטל</button></td></tr>
+            <tr><td><strong>WS-003</strong></td><td>מגמת קוד</td><td>18.06.26</td><td>טכנולוגיה</td><td>35</td><td><span class="badge ws-done" id="ws-status-3">בוצע</span></td><td>—</td></tr>
+            <tr><td><strong>WS-004</strong></td><td>גן טבע ירושלים</td><td>28.06.26</td><td>חינוך סביבתי</td><td>41</td><td><span class="badge ws-planned" id="ws-status-4">מתוכנן</span></td><td class="actions"><button class="btn btn-sm btn-success" onclick="approveWorkshop(4)">אשר</button><button class="btn btn-sm btn-danger" onclick="cancelWorkshop(4)">בטל</button></td></tr>
+            <tr><td><strong>WS-005</strong></td><td>סטודיו מוזיקלי</td><td>02.07.26</td><td>מוזיקה</td><td>30</td><td><span class="badge ws-pending" id="ws-status-5">ממתין</span></td><td class="actions"><button class="btn btn-sm btn-success" onclick="approveWorkshop(5)">אשר</button><button class="btn btn-sm btn-danger" onclick="cancelWorkshop(5)">בטל</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="eval-overlay" style="display:none">
+  <div id="eval-modal">
+    <div class="eval-header"><h2 id="eval-title">הערכת ספק</h2><button class="eval-close" onclick="closeEval()">✕</button></div>
+    <div class="eval-progress"><span id="eval-score">0/8 קריטריונים עברו</span><div class="progress-bar"><div class="progress-fill" id="eval-bar" style="width:0%"></div></div></div>
+    <div id="eval-checklist"></div>
+    <div class="eval-footer"><button class="btn" id="eval-approve-btn" onclick="evalApprove()" disabled>✓ אשר ספק</button><button class="btn btn-outline" onclick="closeEval()">סגור</button></div>
+  </div>
+</div>
+<script>
+(function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';})();
+document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
+function showToast(msg,type){type=type||'success';const t=document.createElement('div');t.className='toast toast-'+type;t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.classList.add('show');},10);setTimeout(function(){t.classList.remove('show');setTimeout(function(){t.remove();},300);},3000);}
+function switchTab(tab){document.querySelectorAll('.admin-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));document.querySelectorAll('.admin-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+tab));}
+function approveSupplier(id){const b=document.getElementById('status-'+id);b.textContent='פעיל';b.className='badge badge-active';showToast('ספק אושר בהצלחה! ✓','success');}
+function suspendSupplier(id){const b=document.getElementById('status-'+id);b.textContent='ממתין';b.className='badge badge-pending';showToast('ספק הושהה','warning');}
+function deleteSupplier(id){document.querySelector('tr[data-id="'+id+'"]').remove();showToast('ספק נמחק','error');}
+function filterTable(q){document.querySelectorAll('#supplier-body tr').forEach(function(row){row.style.display=row.textContent.includes(q)?'':'none';});}
+function approveWorkshop(id){document.getElementById('ws-status-'+id).outerHTML='<span class="badge ws-approved" id="ws-status-'+id+'">מאושר</span>';showToast('סדנה WS-00'+id+' אושרה ✓','success');}
+function cancelWorkshop(id){document.getElementById('ws-status-'+id).outerHTML='<span class="badge ws-cancelled" id="ws-status-'+id+'">בוטל</span>';showToast('סדנה WS-00'+id+' בוטלה','error');}
+function executeWorkshop(id){document.getElementById('ws-status-'+id).outerHTML='<span class="badge ws-done" id="ws-status-'+id+'">בוצע</span>';showToast('סדנה WS-00'+id+' סומנה כבוצע ✓','success');}
+function filterWorkshops(q){document.querySelectorAll('#workshops-body tr').forEach(r=>{r.style.display=r.textContent.includes(q)?'':'none';});}
+const CHECKLIST=[{id:'c1',label:'ביטוח אחריות תקף',required:true},{id:'c2',label:'רישיון עסק בתוקף',required:true},{id:'c3',label:'ניסיון מוכח עם ילדים (2+ שנים)',required:true},{id:'c4',label:'אישורי בטיחות ועזרה ראשונה',required:true},{id:'c5',label:'העסקת עובדים לפי חוק',required:false},{id:'c6',label:'אין עבר פלילי רלוונטי',required:true},{id:'c7',label:'מסמכי ESG / אחריות חברתית',required:false},{id:'c8',label:'המלצות מ-3 לקוחות לפחות',required:false}];
+let currentEvalId=null;
+function openEval(id,name){currentEvalId=id;document.getElementById('eval-title').textContent='הערכת ספק — '+name;document.getElementById('eval-checklist').innerHTML=CHECKLIST.map(item=>`<label class="check-item${item.required?' required':''}"><input type="checkbox" data-required="${item.required}" onchange="updateScore()"><span class="check-label">${item.label}</span>${item.required?'<span class="req-badge">חובה</span>':''}</label>`).join('');document.getElementById('eval-overlay').style.display='flex';updateScore();}
+function closeEval(){document.getElementById('eval-overlay').style.display='none';currentEvalId=null;}
+function updateScore(){const boxes=[...document.querySelectorAll('#eval-checklist input')];const checked=boxes.filter(b=>b.checked).length;const reqDone=[...document.querySelectorAll('#eval-checklist input[data-required="true"]')].every(b=>b.checked);const pct=Math.round(checked/CHECKLIST.length*100);document.getElementById('eval-score').textContent=checked+'/'+CHECKLIST.length+' קריטריונים עברו';document.getElementById('eval-bar').style.cssText='width:'+pct+'%;background:'+(reqDone?'var(--green)':'var(--gold)');document.getElementById('eval-approve-btn').disabled=!reqDone;}
+function evalApprove(){if(!currentEvalId)return;const b=document.getElementById('status-'+currentEvalId);b.textContent='פעיל';b.className='badge badge-active';closeEval();showToast('ספק אושר לאחר הערכה מלאה ✓','success');}
+document.addEventListener('DOMContentLoaded',function(){
+  setTimeout(function(){document.getElementById('skeleton-zone').style.display='none';document.getElementById('table-content').style.opacity='1';},600);
+  setTimeout(function(){const z=document.getElementById('ws-skeleton-zone');if(z){z.style.display='none';document.getElementById('ws-content').style.opacity=1;}},600);
+});
+</script>
+</body>
+</html>
