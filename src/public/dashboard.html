@@ -1,1 +1,461 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"2e0cd3b90cd2e3789648cf7b6b7afad720aa19e3"}}
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מדדי אימפקט | Impact Platform</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #1a3a5c;
+      --teal:    #0d7c66;
+      --gold:    #e8a020;
+      --light:   #f4f7fb;
+      --border:  #dde3ee;
+      --text:    #1e2740;
+      --muted:   #6b7a9a;
+      --white:   #ffffff;
+      --green:   #1a9c6e;
+      --red:     #d94f4f;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: var(--white);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    header .logo { font-size: 1.25rem; font-weight: 700; letter-spacing: .02em; }
+    header .logo span { color: var(--gold); }
+    header nav a {
+      color: rgba(255,255,255,.8);
+      text-decoration: none;
+      margin-inline-start: 1.5rem;
+      font-size: .9rem;
+      transition: color .2s;
+    }
+    header nav a:hover, header nav a.active { color: var(--white); }
+    header nav a.active { border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+
+    /* ── Layout ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+    .page-title { font-size: 1.6rem; font-weight: 700; margin-bottom: .25rem; }
+    .page-subtitle { color: var(--muted); font-size: .95rem; margin-bottom: 2rem; }
+
+    /* ── KPI Cards ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--blue);
+    }
+    .kpi-card.green::before  { background: var(--green); }
+    .kpi-card.gold::before   { background: var(--gold); }
+    .kpi-card.teal::before   { background: var(--teal); }
+    .kpi-label { font-size: .78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .5rem; }
+    .kpi-value { font-size: 2rem; font-weight: 800; line-height: 1; }
+    .kpi-sub   { font-size: .82rem; color: var(--muted); margin-top: .4rem; }
+    .kpi-delta { font-size: .82rem; font-weight: 600; margin-top: .3rem; }
+    .kpi-delta.up   { color: var(--green); }
+    .kpi-delta.down { color: var(--red); }
+
+    /* ── Charts grid ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 860px) { .charts-grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; gap: 1rem; }
+    .card-title { font-size: 1rem; font-weight: 700; }
+    .card-desc  { font-size: .8rem; color: var(--muted); margin-top: .2rem; line-height: 1.4; }
+    .badge {
+      font-size: .72rem; font-weight: 700; padding: .2rem .65rem;
+      border-radius: 20px; white-space: nowrap;
+      background: #e8f5f1; color: var(--teal);
+    }
+
+    /* ── SROI highlight bar ── */
+    .sroi-highlight {
+      display: flex;
+      gap: 1.5rem;
+      background: linear-gradient(135deg, #0d7c66 0%, #1a3a5c 100%);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .sroi-highlight .big-number { font-size: 3rem; font-weight: 900; line-height: 1; color: var(--gold); }
+    .sroi-highlight .label { font-size: .9rem; opacity: .85; margin-top: .25rem; }
+    .sroi-divider { width: 1px; background: rgba(255,255,255,.25); align-self: stretch; }
+    .sroi-stat { display: flex; flex-direction: column; gap: .25rem; }
+    .sroi-stat strong { font-size: 1.4rem; font-weight: 800; }
+    .sroi-stat span   { font-size: .8rem; opacity: .8; }
+
+    /* ── ESG export box ── */
+    .esg-box {
+      background: #fff9ec;
+      border: 1px solid #f0d48a;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .esg-box p { font-size: .88rem; color: #7a5700; line-height: 1.5; }
+    .esg-box strong { color: var(--text); }
+    .btn {
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: .6rem 1.4rem;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .btn:hover { background: #0f2740; }
+    .btn.gold { background: var(--gold); color: var(--text); }
+    .btn.gold:hover { background: #c98500; color: var(--white); }
+
+    /* ── Bottom grid ── */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 680px) { .bottom-grid { grid-template-columns: 1fr; } }
+
+    /* ── Activity list ── */
+    .activity-list { list-style: none; }
+    .activity-list li {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .65rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .88rem;
+    }
+    .activity-list li:last-child { border-bottom: none; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot.blue  { background: var(--blue); }
+    .dot.teal  { background: var(--teal); }
+    .dot.gold  { background: var(--gold); }
+    .dot.green { background: var(--green); }
+    .activity-list .meta { margin-inline-start: auto; color: var(--muted); font-size: .78rem; }
+
+    /* ── Progress bars ── */
+    .progress-item { margin-bottom: 1rem; }
+    .progress-item:last-child { margin-bottom: 0; }
+    .progress-header { display: flex; justify-content: space-between; font-size: .85rem; margin-bottom: .4rem; }
+    .progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; background: var(--blue); transition: width .5s ease; }
+    .progress-fill.teal  { background: var(--teal); }
+    .progress-fill.gold  { background: var(--gold); }
+    .progress-fill.green { background: var(--green); }
+
+    canvas { max-width: 100%; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Impact<span>Platform</span></div>
+  <nav>
+    <a href="index.html">בית</a>
+    <a href="dashboard.html" class="active">מדדי אימפקט</a>
+    <a href="goals.html">יעדים</a>
+    <a href="order.html">הזמנות</a>
+    <a href="admin.html">ניהול</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="page-title">מדדי אימפקט חברתי</div>
+  <div class="page-subtitle">מעקב אחר תועלת חברתית מדידה — נתונים מוכנים לדוח ESG | רבעון 2, 2026</div>
+
+  <!-- KPI row -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">השקעה כוללת</div>
+      <div class="kpi-value">₪480K</div>
+      <div class="kpi-sub">מ-Q1/2025 עד היום</div>
+      <div class="kpi-delta up">↑ 12% לעומת אשתקד</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">ערך חברתי שנוצר</div>
+      <div class="kpi-value">₪1.87M</div>
+      <div class="kpi-sub">לפי מדידת SROI</div>
+      <div class="kpi-delta up">↑ 18% לעומת אשתקד</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-label">ילדים שנהנו</div>
+      <div class="kpi-value">1,240</div>
+      <div class="kpi-sub">מ-38 סדנאות</div>
+      <div class="kpi-delta up">↑ 31 ילד חדש החודש</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">שעות פנאי איכותיות</div>
+      <div class="kpi-value">9,680</div>
+      <div class="kpi-sub">שעות מצטברות</div>
+      <div class="kpi-delta up">↑ 7.8 שעות ממוצע לילד</div>
+    </div>
+  </div>
+
+  <!-- SROI hero -->
+  <div class="sroi-highlight">
+    <div>
+      <div class="big-number">3.9x</div>
+      <div class="label">יחס SROI — על כל ₪1 שהושקע, נוצרו ₪3.9 של ערך חברתי</div>
+    </div>
+    <div class="sroi-divider"></div>
+    <div class="sroi-stat">
+      <strong>₪387</strong>
+      <span>עלות ממוצעת לילד</span>
+    </div>
+    <div class="sroi-divider"></div>
+    <div class="sroi-stat">
+      <strong>₪1,510</strong>
+      <span>ערך חברתי לילד</span>
+    </div>
+    <div class="sroi-divider"></div>
+    <div class="sroi-stat">
+      <strong>7.8 שעות</strong>
+      <span>פנאי איכותי ממוצע</span>
+    </div>
+    <div class="sroi-divider"></div>
+    <div class="sroi-stat">
+      <strong>₪193.8</strong>
+      <span>ערך לשעת פנאי</span>
+    </div>
+  </div>
+
+  <!-- ESG export notice -->
+  <div class="esg-box">
+    <p>
+      <strong>מוכן לדוח ESG:</strong> נתוני SROI מחושבים לפי מתודולוגיית Social Value International.
+      ניתן לייצא את הנתונים ישירות לפורמט GRI 203 לדוח אחריות תאגידית.
+    </p>
+    <div style="display:flex; gap:.75rem;">
+      <button class="btn gold" onclick="alert('מייצא נתוני GRI 203...')">ייצוא ESG / GRI</button>
+      <button class="btn" onclick="window.print()">הדפס דוח</button>
+    </div>
+  </div>
+
+  <!-- Main charts -->
+  <div class="charts-grid">
+    <!-- SROI bar chart -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">עלות מול ערך חברתי — לפי רבעון</div>
+          <div class="card-desc">השוואה בין השקעת הבנק (₪) לבין הערך החברתי שנוצר (SROI), לפי רבעון.</div>
+        </div>
+        <div class="badge">SROI</div>
+      </div>
+      <canvas id="sroiChart" height="220"></canvas>
+    </div>
+
+    <!-- Donut -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">פילוח סוגי סדנאות</div>
+          <div class="card-desc">חלוקת שעות הפנאי האיכותיות לפי קטגוריה.</div>
+        </div>
+      </div>
+      <canvas id="donutChart" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- Bottom row -->
+  <div class="bottom-grid">
+
+    <!-- Goals progress -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">יעדים רבעוניים — Q2/2026</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span>ילדים פעילים</span><span>1,240 / 1,500</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:82.7%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span>סדנאות שהתקיימו</span><span>38 / 45</span></div>
+        <div class="progress-bar"><div class="progress-fill teal" style="width:84.4%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span>שעות פנאי</span><span>9,680 / 12,000</span></div>
+        <div class="progress-bar"><div class="progress-fill gold" style="width:80.7%"></div></div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-header"><span>יחס SROI יעד (≥3.5x)</span><span>3.9x ✓</span></div>
+        <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- Recent activity -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">פעילות אחרונה</div>
+      </div>
+      <ul class="activity-list">
+        <li><div class="dot green"></div>סדנת יצירה — תל אביב (48 ילדים)<span class="meta">היום</span></li>
+        <li><div class="dot blue"></div>דוח SROI Q1/2026 אושר<span class="meta">אתמול</span></li>
+        <li><div class="dot teal"></div>סדנת ספורט — חיפה (62 ילדים)<span class="meta">18 יוני</span></li>
+        <li><div class="dot gold"></div>יעד 1,000 ילדים הושג<span class="meta">15 יוני</span></li>
+        <li><div class="dot blue"></div>סדנת קוד — ירושלים (35 ילדים)<span class="meta">10 יוני</span></li>
+        <li><div class="dot green"></div>תרומה חדשה: ₪80,000 Q3<span class="meta">5 יוני</span></li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  // ── SROI Bar Chart ──
+  const sroiCtx = document.getElementById('sroiChart').getContext('2d');
+  new Chart(sroiCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Q1/2025', 'Q2/2025', 'Q3/2025', 'Q4/2025', 'Q1/2026', 'Q2/2026 (חלקי)'],
+      datasets: [
+        {
+          label: 'השקעת הבנק (₪)',
+          data: [60000, 72000, 85000, 90000, 95000, 78000],
+          backgroundColor: 'rgba(26, 58, 92, 0.85)',
+          borderRadius: 6,
+          order: 1
+        },
+        {
+          label: 'ערך חברתי שנוצר (₪)',
+          data: [198000, 256000, 318000, 367000, 389000, 342000],
+          backgroundColor: 'rgba(13, 124, 102, 0.75)',
+          borderRadius: 6,
+          order: 1
+        },
+        {
+          label: 'יחס SROI',
+          data: [3.3, 3.56, 3.74, 4.08, 4.09, 4.38],
+          type: 'line',
+          borderColor: '#e8a020',
+          backgroundColor: 'rgba(232,160,32,.12)',
+          borderWidth: 2.5,
+          pointRadius: 5,
+          pointBackgroundColor: '#e8a020',
+          yAxisID: 'y2',
+          order: 0,
+          tension: 0.35
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 14 } },
+        tooltip: {
+          callbacks: {
+            label(ctx) {
+              if (ctx.dataset.yAxisID === 'y2') return ` SROI: ${ctx.parsed.y}x`;
+              return ` ${ctx.dataset.label}: ₪${ctx.parsed.y.toLocaleString('he-IL')}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: {
+          position: 'right',
+          ticks: {
+            callback: v => '₪' + (v / 1000).toFixed(0) + 'K',
+            font: { size: 11 }
+          },
+          grid: { color: '#eef0f6' }
+        },
+        y2: {
+          position: 'left',
+          min: 0, max: 6,
+          ticks: { callback: v => v + 'x', font: { size: 11 } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+
+  // ── Donut Chart ──
+  const donutCtx = document.getElementById('donutChart').getContext('2d');
+  new Chart(donutCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['יצירה ואמנות', 'ספורט ותנועה', 'טכנולוגיה וקוד', 'טבע וסביבה', 'מוזיקה'],
+      datasets: [{
+        data: [28, 25, 22, 14, 11],
+        backgroundColor: ['#1a3a5c', '#0d7c66', '#e8a020', '#1a9c6e', '#4a7fa5'],
+        borderWidth: 2,
+        borderColor: '#fff',
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '62%',
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10 } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
