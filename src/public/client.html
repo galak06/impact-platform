@@ -16,49 +16,56 @@ header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start
 header nav a:hover,header nav a.active{color:#fff;}
 header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
 .page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
-.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem;}
-.card,.ws-card{transition:all .25s ease;cursor:pointer;}
-.card:hover,.ws-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
-.btn{transition:all .2s ease;}
-.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
 .client-bar{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border-radius:12px;padding:1.25rem 1.75rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
 .client-bar strong{display:block;font-size:1.05rem;margin-bottom:.2rem;}
-.client-bar span{font-size:.85rem;opacity:.8;}
-.client-bar-stats{display:flex;gap:1.5rem;}
-.cs{text-align:center;}.cs strong{display:block;font-size:1.4rem;font-weight:800;color:var(--gold);}.cs span{font-size:.78rem;opacity:.8;}
+.client-bar>div:first-child span{font-size:.85rem;opacity:.8;}
+.cb-stats{display:flex;gap:1.5rem;}
+.cbs{text-align:center;}.cbs strong{display:block;font-size:1.4rem;font-weight:800;color:var(--gold);}.cbs span{font-size:.78rem;opacity:.8;}
 .client-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:1.5rem;}
 .ctab{background:none;border:none;padding:.65rem 1.4rem;font-size:.92rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
 .ctab.active{color:var(--blue);border-bottom-color:var(--blue);}
 .ctab-panel{display:none;}.ctab-panel.active{display:block;}
+.ws-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
+.ws-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;transition:all .25s ease;cursor:pointer;}
+.ws-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12);border-color:var(--teal);}
+.ws-icon{font-size:2.2rem;margin-bottom:.5rem;}
+.ws-name{font-size:1rem;font-weight:700;margin-bottom:.25rem;}
+.ws-provider{font-size:.82rem;color:var(--muted);margin-bottom:.25rem;}
+.ws-price{font-size:.82rem;color:var(--muted);margin-bottom:.4rem;}
+.ws-avail{font-size:.78rem;color:var(--green);margin-bottom:.75rem;}
+.ws-btn{width:100%;padding:.5rem;font-size:.88rem;font-weight:700;background:var(--teal);color:#fff;border:none;border-radius:8px;cursor:pointer;transition:all .2s;}
+.ws-btn:hover{background:#0a6655;}
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1rem;}
 .kpi{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;}
 .kpi-val{font-size:2rem;font-weight:800;color:var(--blue);display:block;}
 .kpi-lbl{font-size:.82rem;color:var(--muted);margin-top:.3rem;}
-.prog-wrap{margin:1rem 0;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem;}
+.prog-wrap{margin:.75rem 0;}
 .prog-label{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:.4rem;}
 .prog-bar{height:10px;background:var(--border);border-radius:99px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:99px;transition:width .8s ease;}
 .activity-list{display:flex;flex-direction:column;gap:.6rem;margin-top:.75rem;}
 .activity-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem .75rem;background:var(--light);border-radius:8px;font-size:.85rem;}
-.activity-name{font-weight:600;}
-.activity-date{color:var(--muted);font-size:.8rem;}
+.activity-name{font-weight:600;}.activity-date{color:var(--muted);font-size:.8rem;}
 .badge{padding:.2rem .6rem;border-radius:99px;font-size:.75rem;font-weight:700;}
-.badge-green{background:#e6f9f2;color:var(--green);}
-.badge-blue{background:#e8eef8;color:var(--blue);}
-.ws-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
-.ws-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;}
-.ws-icon{font-size:2rem;margin-bottom:.5rem;}
-.ws-name{font-size:1rem;font-weight:700;margin-bottom:.25rem;}
-.ws-meta{font-size:.82rem;color:var(--muted);margin-bottom:.2rem;}
-.ws-btn{width:100%;margin-top:.75rem;padding:.5rem;font-size:.85rem;background:var(--teal);color:#fff;border:none;border-radius:8px;cursor:pointer;}
-.section-title{font-size:1rem;font-weight:700;margin-bottom:.75rem;color:var(--text);}
-@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
-.skeleton{background:linear-gradient(90deg,#e0e5f0 25%,#f0f4fa 50%,#e0e5f0 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:80px;margin-bottom:1rem;}
-#client-content{opacity:0;transition:opacity .4s ease;}
-#client-content.visible{opacity:1;}
+.badge-green{background:#e6f9f2;color:var(--green);}.badge-blue{background:#e8eef8;color:var(--blue);}
+.section-title{font-size:1rem;font-weight:700;margin-bottom:.75rem;}
+#book-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;}
+#book-drawer{position:fixed;top:0;left:0;width:340px;height:100vh;background:var(--white);z-index:201;padding:1.75rem 1.5rem;overflow-y:auto;box-shadow:-4px 0 24px rgba(0,0,0,.15);}
+.book-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.book-header h3{font-size:1.1rem;font-weight:700;}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.83rem;font-weight:600;color:var(--muted);margin-bottom:.35rem;}
+.form-group input,.form-group textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:.6rem .9rem;font-size:.9rem;background:var(--white);color:var(--text);resize:vertical;}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--teal);}
+.btn{display:inline-block;padding:.65rem 1.4rem;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn:hover{background:#0a6655;transform:translateY(-1px);}
 .toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast-success{background:#1a9c6e;}.toast-info{background:#1a3a5c;}.toast-warning{background:#e8a020;color:#1e2740;}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skeleton{background:linear-gradient(90deg,#e0e5f0 25%,#f0f4fa 50%,#e0e5f0 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:80px;margin-bottom:1rem;}
+#client-content{opacity:0;transition:opacity .4s ease;}#client-content.visible{opacity:1;}
 </style>
 </head>
 <body>
@@ -68,56 +75,82 @@ header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
     <a href="dashboard.html">מדדי אימפקט</a>
     <a href="goals.html">יעדים</a>
     <a href="order.html">הזמנות</a>
-    <a href="admin.html">ניהול</a>
     <a href="client.html" class="active">פורטל לקוח</a>
   </nav>
   <div class="header-left">
-    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <button class="theme-btn" id="themeBtn">🌙</button>
     <div class="logo">Impact<span>Platform</span></div>
   </div>
 </header>
 
 <div class="page">
-  <div id="client-skeleton">
-    <div class="skeleton"></div>
-    <div class="skeleton" style="height:48px"></div>
-    <div class="skeleton" style="height:140px"></div>
-  </div>
-
+  <div id="client-skeleton"><div class="skeleton"></div><div class="skeleton" style="height:48px"></div><div class="skeleton" style="height:200px"></div></div>
   <div id="client-content">
     <div class="client-bar">
-      <div>
-        <strong>שלום, עיריית תל אביב-יפו 👋</strong>
-        <span>רבעון 2, 2026 | חוזה פעיל עד דצמבר 2026</span>
-      </div>
-      <div class="client-bar-stats">
-        <div class="cs"><strong>38</strong><span>סדנאות</span></div>
-        <div class="cs"><strong>1,240</strong><span>ילדים</span></div>
-        <div class="cs"><strong>₪480K</strong><span>תקציב</span></div>
+      <div><strong>עיריית תל אביב-יפו 👋</strong><span>חוזה פעיל · Q2 2026</span></div>
+      <div class="cb-stats">
+        <div class="cbs"><strong>10</strong><span>סדנאות נותרו</span></div>
+        <div class="cbs"><strong>₪100K</strong><span>תקציב פנוי</span></div>
+        <div class="cbs"><strong>480</strong><span>ילדים פנויים</span></div>
       </div>
     </div>
 
     <div class="client-tabs">
-      <button class="ctab active" data-tab="mydata" onclick="cTab('mydata')">הנתונים שלי</button>
-      <button class="ctab" data-tab="catalog" onclick="cTab('catalog')">בחירת סדנאות</button>
+      <button class="ctab active" data-tab="catalog" onclick="cTab('catalog')">בחירת סדנאות</button>
+      <button class="ctab" data-tab="mydata" onclick="cTab('mydata')">הנתונים שלי</button>
     </div>
 
-    <div class="ctab-panel active" id="cpanel-mydata">
+    <div class="ctab-panel active" id="cpanel-catalog">
+      <div class="ws-grid">
+        <div class="ws-card" onclick="openBook('יצירה ואמנות','מרכז יצירה ת״א','180','50','🎨')">
+          <div class="ws-icon">🎨</div>
+          <div class="ws-name">יצירה ואמנות</div>
+          <div class="ws-provider">מרכז יצירה ת"א</div>
+          <div class="ws-price">₪180 לילד · עד 50 ילדים</div>
+          <div class="ws-avail">✅ זמין ל-Q3 2026</div>
+          <button class="ws-btn">+ הזמן סדנה</button>
+        </div>
+        <div class="ws-card" onclick="openBook('ספורט ותנועה','אקדמיה ספורטיבית','150','70','⚽')">
+          <div class="ws-icon">⚽</div>
+          <div class="ws-name">ספורט ותנועה</div>
+          <div class="ws-provider">אקדמיה ספורטיבית</div>
+          <div class="ws-price">₪150 לילד · עד 70 ילדים</div>
+          <div class="ws-avail">✅ זמין ל-Q3 2026</div>
+          <button class="ws-btn">+ הזמן סדנה</button>
+        </div>
+        <div class="ws-card" onclick="openBook('טכנולוגיה וקוד','מגמת קוד','220','30','💻')">
+          <div class="ws-icon">💻</div>
+          <div class="ws-name">טכנולוגיה וקוד</div>
+          <div class="ws-provider">מגמת קוד</div>
+          <div class="ws-price">₪220 לילד · עד 30 ילדים</div>
+          <div class="ws-avail">✅ זמין ל-Q3 2026</div>
+          <button class="ws-btn">+ הזמן סדנה</button>
+        </div>
+        <div class="ws-card" onclick="openBook('חינוך סביבתי','גן טבע ירושלים','160','45','🌿')">
+          <div class="ws-icon">🌿</div>
+          <div class="ws-name">חינוך סביבתי</div>
+          <div class="ws-provider">גן טבע ירושלים</div>
+          <div class="ws-price">₪160 לילד · עד 45 ילדים</div>
+          <div class="ws-avail">✅ זמין ל-Q3 2026</div>
+          <button class="ws-btn">+ הזמן סדנה</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ctab-panel" id="cpanel-mydata">
       <div class="kpi-row">
         <div class="kpi"><span class="kpi-val">28</span><div class="kpi-lbl">סדנאות שהתקיימו</div></div>
         <div class="kpi"><span class="kpi-val">1,240</span><div class="kpi-lbl">ילדים שהשתתפו</div></div>
         <div class="kpi"><span class="kpi-val">9,680</span><div class="kpi-lbl">שעות פנאי</div></div>
       </div>
-
-      <div class="card" style="cursor:default;">
+      <div class="card">
         <div class="section-title">תקציב רבעוני</div>
         <div class="prog-wrap">
-          <div class="prog-label"><span>₪380K מתוך ₪480K נוצל</span><span style="font-weight:700;">79%</span></div>
+          <div class="prog-label"><span>₪380K מתוך ₪480K נוצל</span><span style="font-weight:700">79%</span></div>
           <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
         </div>
       </div>
-
-      <div class="card" style="cursor:default;">
+      <div class="card">
         <div class="section-title">פעילות אחרונה</div>
         <div class="activity-list">
           <div class="activity-item"><div><div class="activity-name">יצירה ואמנות — שכונת שפירא</div><div class="activity-date">15 יוני 2026</div></div><span class="badge badge-green">הושלם</span></div>
@@ -127,54 +160,35 @@ header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="ctab-panel" id="cpanel-catalog">
-      <div class="section-title">קטלוג סדנאות זמינות</div>
-      <div class="ws-grid">
-        <div class="ws-card" onclick="selectWorkshop('יצירה ואמנות')">
-          <div class="ws-icon">🎨</div>
-          <div class="ws-name">יצירה ואמנות</div>
-          <div class="ws-meta">מרכז יצירה ת"א</div>
-          <div class="ws-meta">₪180 לילד · עד 50 ילדים</div>
-          <button class="btn ws-btn">הזמן סדנה</button>
-        </div>
-        <div class="ws-card" onclick="selectWorkshop('ספורט ותנועה')">
-          <div class="ws-icon">⚽</div>
-          <div class="ws-name">ספורט ותנועה</div>
-          <div class="ws-meta">אקדמיה ספורטיבית</div>
-          <div class="ws-meta">₪150 לילד · עד 70 ילדים</div>
-          <button class="btn ws-btn">הזמן סדנה</button>
-        </div>
-        <div class="ws-card" onclick="selectWorkshop('טכנולוגיה וקוד')">
-          <div class="ws-icon">💻</div>
-          <div class="ws-name">טכנולוגיה וקוד</div>
-          <div class="ws-meta">מגמת קוד</div>
-          <div class="ws-meta">₪220 לילד · עד 30 ילדים</div>
-          <button class="btn ws-btn">הזמן סדנה</button>
-        </div>
-        <div class="ws-card" onclick="selectWorkshop('חינוך סביבתי')">
-          <div class="ws-icon">🌿</div>
-          <div class="ws-name">חינוך סביבתי</div>
-          <div class="ws-meta">גן טבע ירושלים</div>
-          <div class="ws-meta">₪160 לילד · עד 45 ילדים</div>
-          <button class="btn ws-btn">הזמן סדנה</button>
-        </div>
-      </div>
+<div id="book-panel" style="display:none">
+  <div id="book-overlay" onclick="closeBook()"></div>
+  <div id="book-drawer">
+    <div class="book-header">
+      <h3 id="book-title">הזמנת סדנה</h3>
+      <button onclick="closeBook()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted)">✕</button>
     </div>
+    <div id="book-icon" style="text-align:center;font-size:3rem;margin:1rem 0"></div>
+    <div id="book-meta" style="text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:1.5rem"></div>
+    <div class="form-group"><label>תאריך מבוקש</label><input type="date" id="book-date"></div>
+    <div class="form-group"><label>מספר ילדים</label><input type="number" id="book-kids" min="5" placeholder="30"></div>
+    <div class="form-group"><label>הערות</label><textarea id="book-notes" rows="2" placeholder="בקשות מיוחדות..."></textarea></div>
+    <button class="btn" style="width:100%;margin-top:.5rem" onclick="submitBook()">שלח בקשת הזמנה ←</button>
   </div>
 </div>
 
 <script>
 (function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';})();
-document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
+document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme'),n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
 function showToast(msg,type='success'){const t=document.createElement('div');t.className=`toast toast-${type}`;t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.classList.add('show'),10);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300);},3000);}
 function cTab(tab){document.querySelectorAll('.ctab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));document.querySelectorAll('.ctab-panel').forEach(p=>p.classList.toggle('active',p.id==='cpanel-'+tab));}
-function selectWorkshop(name){showToast('מעביר להזמנת '+name+'...','info');setTimeout(()=>location.href='order.html',800);}
-setTimeout(function(){
-  document.getElementById('client-skeleton').style.display='none';
-  const c=document.getElementById('client-content');c.classList.add('visible');
-  setTimeout(()=>document.getElementById('prog').style.width='79%',100);
-},600);
+let bookName='';
+function openBook(name,provider,price,cap,icon){bookName=name;document.getElementById('book-title').textContent='הזמנת סדנה — '+name;document.getElementById('book-icon').textContent=icon;document.getElementById('book-meta').textContent=provider+' · ₪'+price+'/ילד · עד '+cap+' ילדים';document.getElementById('book-panel').style.display='block';}
+function closeBook(){document.getElementById('book-panel').style.display='none';}
+function submitBook(){const date=document.getElementById('book-date').value,kids=document.getElementById('book-kids').value;if(!date||!kids){showToast('נא למלא תאריך ומספר ילדים','warning');return;}closeBook();showToast('בקשת הזמנה נשלחה: '+bookName+' ל-'+kids+' ילדים ✓','success');}
+setTimeout(function(){document.getElementById('client-skeleton').style.display='none';const c=document.getElementById('client-content');c.classList.add('visible');setTimeout(()=>document.getElementById('prog').style.width='79%',100);},600);
 </script>
 </body>
 </html>
