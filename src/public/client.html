@@ -261,33 +261,14 @@ const reportData={
 };
 function openReportModal(type){const d=reportData[type];if(!d)return;document.getElementById('report-modal-content').innerHTML=`<div class="rm-header"><div class="rm-logo">ImpactPlatform</div><div class="rm-title">${d.title}</div><div class="rm-sub">${d.sub}</div></div>${d.html}<div class="rm-footer">דוח זה הופק אוטומטית על ידי ImpactPlatform · ${new Date().toLocaleDateString('he-IL')}</div>`;document.getElementById('report-modal').style.display='flex';}
 function closeReportModal(){document.getElementById('report-modal').style.display='none';}
+const W=(n,p,d,k,s)=>({name:n,provider:p,date:d,kids:k,status:s});
 const regions=[
-  {name:'ירושלים',lat:31.768,lng:35.214,inv:85000,kids:180,ws:8,color:'#1a3a5c',workshops:[
-    {name:'חינוך סביבתי',provider:'גן טבע',date:'08.06',kids:42,status:'הושלם'},
-    {name:'תרבות וקריאה',provider:'חווית הספר',date:'14.06',kids:38,status:'הושלם'},
-    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'22.06',kids:45,status:'פעיל'},
-    {name:'מוזיקה',provider:'סטודיו מוזיקלי',date:'28.06',kids:35,status:'מתוכנן'}]},
-  {name:'תל אביב',lat:32.085,lng:34.781,inv:120000,kids:280,ws:12,color:'#0d7c66',workshops:[
-    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'05.06',kids:50,status:'הושלם'},
-    {name:'תרבות וקריאה',provider:'חווית הספר',date:'10.06',kids:40,status:'הושלם'},
-    {name:'טכנולוגיה וקוד',provider:'מגמת קוד',date:'17.06',kids:30,status:'הושלם'},
-    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'24.06',kids:60,status:'פעיל'}]},
-  {name:'חיפה',lat:32.794,lng:34.989,inv:75000,kids:160,ws:7,color:'#e8a020',workshops:[
-    {name:'מוזיקה',provider:'סטודיו מוזיקלי',date:'06.06',kids:35,status:'הושלם'},
-    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'13.06',kids:70,status:'הושלם'},
-    {name:'חינוך סביבתי',provider:'גן טבע',date:'20.06',kids:45,status:'פעיל'}]},
-  {name:'צפון',lat:32.900,lng:35.500,inv:60000,kids:130,ws:5,color:'#9b59b6',workshops:[
-    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'07.06',kids:50,status:'הושלם'},
-    {name:'חינוך סביבתי',provider:'גן טבע',date:'21.06',kids:45,status:'פעיל'},
-    {name:'תרבות וקריאה',provider:'חווית הספר',date:'27.06',kids:40,status:'מתוכנן'}]},
-  {name:'דרום',lat:31.252,lng:34.791,inv:45000,kids:90,ws:4,color:'#d94f4f',workshops:[
-    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'09.06',kids:70,status:'הושלם'},
-    {name:'תרבות וקריאה',provider:'חווית הספר',date:'23.06',kids:40,status:'מתוכנן'}]},
-  {name:'מרכז',lat:32.086,lng:34.887,inv:95000,kids:200,ws:9,color:'#1a9c6e',workshops:[
-    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'04.06',kids:70,status:'הושלם'},
-    {name:'טכנולוגיה וקוד',provider:'מגמת קוד',date:'11.06',kids:30,status:'הושלם'},
-    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'18.06',kids:50,status:'פעיל'},
-    {name:'מוזיקה',provider:'סטודיו מוזיקלי',date:'25.06',kids:35,status:'מתוכנן'}]}
+  {name:'ירושלים',lat:31.768,lng:35.214,inv:85000,kids:180,ws:8,color:'#1a3a5c',workshops:[W('חינוך סביבתי','גן טבע','08.06',42,'הושלם'),W('תרבות וקריאה','חווית הספר','14.06',38,'הושלם'),W('יצירה ואמנות','מרכז יצירה','22.06',45,'פעיל'),W('מוזיקה','סטודיו מוזיקלי','28.06',35,'מתוכנן')]},
+  {name:'תל אביב',lat:32.085,lng:34.781,inv:120000,kids:280,ws:12,color:'#0d7c66',workshops:[W('יצירה ואמנות','מרכז יצירה','05.06',50,'הושלם'),W('תרבות וקריאה','חווית הספר','10.06',40,'הושלם'),W('טכנולוגיה וקוד','מגמת קוד','17.06',30,'הושלם'),W('ספורט ותנועה','האקדמיה','24.06',60,'פעיל')]},
+  {name:'חיפה',lat:32.794,lng:34.989,inv:75000,kids:160,ws:7,color:'#e8a020',workshops:[W('מוזיקה','סטודיו מוזיקלי','06.06',35,'הושלם'),W('ספורט ותנועה','האקדמיה','13.06',70,'הושלם'),W('חינוך סביבתי','גן טבע','20.06',45,'פעיל')]},
+  {name:'צפון',lat:32.900,lng:35.500,inv:60000,kids:130,ws:5,color:'#9b59b6',workshops:[W('יצירה ואמנות','מרכז יצירה','07.06',50,'הושלם'),W('חינוך סביבתי','גן טבע','21.06',45,'פעיל'),W('תרבות וקריאה','חווית הספר','27.06',40,'מתוכנן')]},
+  {name:'דרום',lat:31.252,lng:34.791,inv:45000,kids:90,ws:4,color:'#d94f4f',workshops:[W('ספורט ותנועה','האקדמיה','09.06',70,'הושלם'),W('תרבות וקריאה','חווית הספר','23.06',40,'מתוכנן')]},
+  {name:'מרכז',lat:32.086,lng:34.887,inv:95000,kids:200,ws:9,color:'#1a9c6e',workshops:[W('ספורט ותנועה','האקדמיה','04.06',70,'הושלם'),W('טכנולוגיה וקוד','מגמת קוד','11.06',30,'הושלם'),W('יצירה ואמנות','מרכז יצירה','18.06',50,'פעיל'),W('מוזיקה','סטודיו מוזיקלי','25.06',35,'מתוכנן')]}
 ];
 function showRegion(r){
   document.querySelectorAll('.region-card').forEach(c=>c.classList.remove('active'));
