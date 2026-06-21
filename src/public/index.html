@@ -13,13 +13,28 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
 .header-left{display:flex;align-items:center;gap:1rem}
 .logo{font-size:1.25rem;font-weight:700}.logo span{color:var(--gold)}
 
-.main{max-width:900px;margin:0 auto;padding:3rem 1.5rem;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.main{max-width:960px;margin:0 auto;padding:3rem 1.5rem;width:100%}
+.sect{margin:0 0 3rem;text-align:center}
+.sect h2{font-size:1.3rem;font-weight:800;margin-bottom:.35rem}
+.sect p{font-size:.9rem;color:var(--muted);max-width:500px;margin:0 auto 1.5rem;line-height:1.55}
+.val-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.val-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;transition:all .2s}
+.val-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.09)}
+.val-icon{font-size:1.8rem;margin-bottom:.5rem}.val-title{font-size:.9rem;font-weight:700;margin-bottom:.3rem}.val-sub{font-size:.8rem;color:var(--muted);line-height:1.5}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem}
+.step{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem .75rem;text-align:center;position:relative}
+.step.done{border-color:#b3e0d2;background:#f0faf6}.step.active{border-color:var(--teal);background:#f0faf6;box-shadow:0 4px 12px rgba(13,124,102,.12)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem}
+.step.done .step-num{background:var(--green)}.step.active .step-num{background:var(--teal)}
+.step-icon{font-size:1.35rem;margin-bottom:.3rem}.step-title{font-size:.8rem;font-weight:700;margin-bottom:.2rem}.step-sub{font-size:.72rem;color:var(--muted);line-height:1.35}
+.step-tag{display:inline-block;font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:10px;margin-top:.4rem}
+.tag-done{background:#e8f5f1;color:var(--green)}.tag-active{background:#e0f0ff;color:var(--blue)}.tag-pending{background:#fff3e0;color:#b45309}
 .hero{text-align:center;margin-bottom:3rem}
 .hero h1{font-size:2.2rem;font-weight:800;margin-bottom:.75rem;background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero p{font-size:1.05rem;color:var(--muted);max-width:480px;margin:0 auto 1.5rem;line-height:1.6}
 .hero-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap}
 .hs{text-align:center}.hs strong{display:block;font-size:1.8rem;font-weight:800;color:var(--blue)}.hs span{font-size:.82rem;color:var(--muted)}
-.entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;width:100%;max-width:700px}
+.entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;max-width:720px;margin:0 auto 3.5rem}
 .entry-card{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:2.5rem 2rem;cursor:pointer;transition:all .25s ease;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:1rem;text-align:center}
 .entry-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.13)}
 .entry-card.client{border-top:5px solid var(--teal)}
@@ -88,6 +103,32 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
         <span class="entry-link">הערכת ספקים (צ'קליסט)</span>
       </div>
     </a>
+  </div>
+
+  <!-- Value proposition -->
+  <div class="sect">
+    <h2>כיצד המערכת תורמת לארגון שלכם</h2>
+    <p>כלי אחד לניהול, מדידה ודיווח על כל ההשקעה החברתית שלכם — בזמן אמת</p>
+    <div class="val-grid">
+      <div class="val-card"><div class="val-icon">📊</div><div class="val-title">מדידת SROI אוטומטית</div><div class="val-sub">מחשבים עבורכם את יחס ההחזר החברתי (SROI) על כל השקעה — בשיטת Social Value International</div></div>
+      <div class="val-card"><div class="val-icon">📋</div><div class="val-title">דוחות מוכנים לדירקטוריון</div><div class="val-sub">דוחות ESG ו-GRI 203 אוטומטיים לשיתוף עם בעלי עניין, ועדות ורגולציה — ללחיצת כפתור אחת</div></div>
+      <div class="val-card"><div class="val-icon">✅</div><div class="val-title">ספקים מאומתים ובדוקים</div><div class="val-sub">כל ספק עובר תהליך הערכה מקיף לפני אישור — כישורים, ביטוח, רזומה ועמידה בקריטריונים</div></div>
+      <div class="val-card"><div class="val-icon">🎯</div><div class="val-title">שקיפות תקציבית מלאה</div><div class="val-sub">עקוב אחרי כל שקל: ניצול תקציב, עלות לילד, השוואה לתכנון — הכל בלוח בקרה ייעודי</div></div>
+    </div>
+  </div>
+
+  <!-- Approval process -->
+  <div class="sect">
+    <h2>תהליך אישור סדנה — מ-A ועד ביצוע</h2>
+    <p>תהליך שקוף וברור — אתם בוחרים, אנחנו מתאמים ומדווחים</p>
+    <div class="steps-grid">
+      <div class="step done"><div class="step-num">1</div><div class="step-icon">🔍</div><div class="step-title">בחירת סדנה</div><div class="step-sub">הלקוח בוחר סדנה מהקטלוג המאושר לפי קטגוריה, מיקום ותקציב</div><span class="step-tag tag-done">הושלם</span></div>
+      <div class="step done"><div class="step-num">2</div><div class="step-icon">📝</div><div class="step-title">הגשת בקשה</div><div class="step-sub">בחירת תאריך, מספר משתתפים ובקשות מיוחדות — הכל דרך הפורטל</div><span class="step-tag tag-done">הושלם</span></div>
+      <div class="step active"><div class="step-num">3</div><div class="step-icon">🔎</div><div class="step-title">בדיקה פנימית</div><div class="step-sub">צוות ImpactPlatform בודק התאמה לתקציב, תאריך ודרישות הספק</div><span class="step-tag tag-active">בתהליך</span></div>
+      <div class="step"><div class="step-num">4</div><div class="step-icon">📞</div><div class="step-title">תיאום עם ספק</div><div class="step-sub">קביעת מועד, לוגיסטיקה ואישור כל הפרטים מול הספק המאושר</div><span class="step-tag tag-pending">ממתין</span></div>
+      <div class="step"><div class="step-num">5</div><div class="step-icon">🎉</div><div class="step-title">ביצוע הסדנה</div><div class="step-sub">הסדנה מתקיימת — עם מדריכים מוסמכים ודיווח נוכחות בזמן אמת</div><span class="step-tag tag-pending">ממתין</span></div>
+      <div class="step"><div class="step-num">6</div><div class="step-icon">📊</div><div class="step-title">דוח אימפקט</div><div class="step-sub">נוצר דוח אוטומטי: מספר משתתפים, שביעות רצון, ותרומה ל-SROI</div><span class="step-tag tag-pending">ממתין</span></div>
+    </div>
   </div>
 </main>
 
