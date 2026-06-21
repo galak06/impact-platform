@@ -7,11 +7,11 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
-[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);min-height:100vh;}
 header{background:var(--blue);color:var(--white);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25);}
 .header-left{display:flex;align-items:center;gap:1rem;}
-.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem;line-height:1;}
+
 header .logo{font-size:1.25rem;font-weight:700;letter-spacing:.02em;}
 header .logo span{color:var(--gold);}
 header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start:1.5rem;font-size:.9rem;transition:color .2s;}
@@ -94,7 +94,7 @@ canvas{max-width:100%;}
     <a href="client.html">פורטל לקוח</a>
   </nav>
   <div class="header-left">
-    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    
     <div class="logo">Impact<span>Platform</span></div>
   </div>
 </header>
@@ -168,8 +168,6 @@ canvas{max-width:100%;}
 </main>
 <script>
 function showToast(msg,type='success'){const t=document.createElement('div');t.className=`toast toast-${type}`;t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.classList.add('show'),10);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300);},3000);}
-(function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';})();
-document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
 window.addEventListener('DOMContentLoaded',function(){setTimeout(()=>{document.getElementById('sk-zone').style.display='none';document.getElementById('main-content').style.opacity=1;},600);});
 const sroiCtx=document.getElementById('sroiChart').getContext('2d');
 new Chart(sroiCtx,{type:'bar',data:{labels:['Q1/2025','Q2/2025','Q3/2025','Q4/2025','Q1/2026','Q2/2026 (חלקי)'],datasets:[{label:'השקעת הבנק (₪)',data:[60000,72000,85000,90000,95000,78000],backgroundColor:'rgba(26,58,92,0.85)',borderRadius:6,order:1},{label:'ערך חברתי שנוצר (₪)',data:[198000,256000,318000,367000,389000,342000],backgroundColor:'rgba(13,124,102,0.75)',borderRadius:6,order:1},{label:'יחס SROI',data:[3.3,3.56,3.74,4.08,4.09,4.38],type:'line',borderColor:'#e8a020',backgroundColor:'rgba(232,160,32,.12)',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#e8a020',yAxisID:'y2',order:0,tension:0.35}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{font:{size:12},padding:14}},tooltip:{callbacks:{label(ctx){if(ctx.dataset.yAxisID==='y2')return ` SROI: ${ctx.parsed.y}x`;return ` ${ctx.dataset.label}: ₪${ctx.parsed.y.toLocaleString('he-IL')}`;  }}}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{position:'right',ticks:{callback:v=>'₪'+(v/1000).toFixed(0)+'K',font:{size:11}},grid:{color:'#eef0f6'}},y2:{position:'left',min:0,max:6,ticks:{callback:v=>v+'x',font:{size:11}},grid:{display:false}}}}});

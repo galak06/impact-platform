@@ -8,11 +8,11 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;}
-[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);min-height:100vh;}
 header{background:var(--blue);color:var(--white);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,.25);}
 .header-left{display:flex;align-items:center;gap:1rem;}
-.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem;line-height:1;}
+
 header .logo{font-size:1.25rem;font-weight:700;letter-spacing:.02em;}
 header .logo span{color:var(--gold);}
 header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start:1.5rem;font-size:.9rem;transition:color .2s;}
@@ -66,7 +66,7 @@ header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
     <a href="client.html">פורטל לקוח</a>
   </nav>
   <div class="header-left">
-    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    
     <div class="logo">Impact<span>Platform</span></div>
   </div>
 </header>
@@ -161,14 +161,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 // Dark mode
 const root=document.documentElement;
-const themeBtn=document.getElementById('themeBtn');
-const saved=localStorage.getItem('theme');
-if(saved==='dark'){root.setAttribute('data-theme','dark');themeBtn.textContent='☀️';}
-themeBtn.onclick=()=>{
-  const dark=root.getAttribute('data-theme')==='dark';
-  root.setAttribute('data-theme',dark?'':'dark');
-  themeBtn.textContent=dark?'🌙':'☀️';
-  localStorage.setItem('theme',dark?'light':'dark');
 };
 </script>
 </body>

@@ -5,7 +5,7 @@
 <title>דוחות ESG | ImpactPlatform</title>
 <style>
 :root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
-[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);transition:background .3s,color .3s;}
 header{position:sticky;top:0;z-index:100;background:var(--blue);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;box-shadow:0 2px 8px rgba(0,0,0,.2);}
@@ -14,7 +14,7 @@ nav a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.88rem;font-weig
 nav a:hover{color:#fff;}
 nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
 .header-left{display:flex;align-items:center;gap:1rem;}
-.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+
 .logo{color:#fff;font-size:1.15rem;font-weight:800;}
 .logo span{color:var(--gold);}
 .page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
@@ -68,7 +68,7 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <a href="client.html">פורטל לקוח</a>
   </nav>
   <div class="header-left">
-    <button class="theme-btn" id="themeBtn">🌙</button>
+    
     <div class="logo">Impact<span>Platform</span></div>
   </div>
 </header>
@@ -165,9 +165,6 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
 <div class="toast" id="toast"></div>
 
 <script>
-const t=document.getElementById('themeBtn'),b=document.body;
-(function(){const s=localStorage.getItem('theme');if(s){b.setAttribute('data-theme',s);t.textContent=s==='dark'?'☀️':'🌙';}})();
-t.addEventListener('click',()=>{const d=b.getAttribute('data-theme')==='dark';b.setAttribute('data-theme',d?'light':'dark');localStorage.setItem('theme',d?'light':'dark');t.textContent=d?'🌙':'☀️';});
 let toastTimer;
 function showToast(msg,type='info'){const el=document.getElementById('toast');el.textContent=msg;el.className='toast '+type+' show';clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
 function downloadReport(name){showToast('מוריד: '+name+'...','success');}

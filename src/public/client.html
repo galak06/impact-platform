@@ -7,11 +7,11 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
-[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+
 *{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);}
 header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .logo{font-size:1.25rem;font-weight:700;}.logo span{color:var(--gold);}
-.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+
 .page{max-width:1100px;margin:0 auto;padding:1.5rem;}
 .client-banner{background:linear-gradient(135deg,#1a3a5c,#0d7c66);color:#fff;border-radius:10px;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;}
 .cb-badge{font-size:.72rem;font-weight:700;background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:20px;}
@@ -65,7 +65,7 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
 <body>
 <header>
   <div style="display:flex;align-items:center;gap:1rem"><a href="index.html" style="color:rgba(255,255,255,.7);font-size:.85rem;text-decoration:none">← חזרה</a></div>
-  <div style="display:flex;align-items:center;gap:1rem"><button class="theme-btn" id="themeBtn">🌙</button><div class="logo">Impact<span>Platform</span></div></div>
+  <div style="display:flex;align-items:center;gap:1rem"><div class="logo">Impact<span>Platform</span></div></div>
 </header>
 <main class="page">
   <div class="client-banner">
@@ -205,8 +205,6 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
   </div>
 </main>
 <script>
-(function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';})();
-document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
 function showToast(msg,type='success'){const t=document.createElement('div');t.className=`toast toast-${type}`;t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.classList.add('show'),10);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300);},3000);}
 function cTab(id,btn){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');if(id==='map'&&!window._mapInit)initMap();}
 function selPer(btn){document.querySelectorAll('.per-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
