@@ -70,6 +70,65 @@ header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
 .progress-fill{height:100%;border-radius:4px;background:var(--blue);transition:width .5s ease;}
 .progress-fill.teal{background:var(--teal);}.progress-fill.gold{background:var(--gold);}.progress-fill.green{background:var(--green);}
 canvas{max-width:100%;}
+
+/* ── Mobile responsiveness ── */
+@media(max-width:768px){
+  /* Prevent horizontal overflow */
+  body{overflow-x:hidden;}
+
+  /* Header: stack logo above nav, reduce padding */
+  header{height:auto;flex-direction:column-reverse;align-items:flex-start;padding:.75rem 1rem;gap:.5rem;}
+  .header-left{width:100%;}
+  header nav{display:flex;flex-wrap:wrap;gap:.25rem .1rem;width:100%;}
+  header nav a{margin-inline-start:0;margin-inline-end:.9rem;font-size:.82rem;padding:.25rem 0;}
+
+  /* Page padding */
+  .page{padding:1rem 1rem 2rem;}
+
+  /* Page title / subtitle */
+  .page-title{font-size:1.25rem;}
+  .page-subtitle{font-size:.85rem;margin-bottom:1.25rem;}
+
+  /* KPI grid: 2 columns on mobile */
+  .kpi-grid{grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;}
+  .kpi-value{font-size:1.5rem;}
+  .kpi-label{font-size:.72rem;}
+  .kpi-sub,.kpi-delta{font-size:.75rem;}
+
+  /* SROI highlight: stack vertically, hide dividers */
+  .sroi-highlight{flex-direction:column;gap:1rem;padding:1.25rem 1rem;}
+  .sroi-highlight .big-number{font-size:2.25rem;}
+  .sroi-divider{display:none;}
+  .sroi-stat{flex-direction:row;align-items:baseline;gap:.5rem;}
+  .sroi-stat strong{font-size:1.1rem;}
+
+  /* Charts: single column */
+  .charts-grid{grid-template-columns:1fr;}
+  canvas{height:auto !important;}
+
+  /* ESG box: stack button row */
+  .esg-box{flex-direction:column;gap:.75rem;}
+  .esg-box div[style]{flex-wrap:wrap;}
+  .esg-box p{font-size:.82rem;}
+
+  /* Card padding */
+  .card{padding:1rem;}
+  .card-header{flex-wrap:wrap;gap:.5rem;}
+
+  /* Bottom grid: already has its own 680px breakpoint; reinforce here */
+  .bottom-grid{grid-template-columns:1fr;gap:1rem;}
+
+  /* Activity list */
+  .activity-list li{font-size:.82rem;}
+  .activity-list .meta{font-size:.72rem;}
+
+  /* Client banner */
+  .client-banner{padding:.75rem 1rem;}
+  .cb-name{font-size:.88rem;}
+
+  /* Buttons */
+  .btn{padding:.55rem 1rem;font-size:.82rem;}
+}
 .toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast-success{background:#1a9c6e;}.toast-info{background:#1a3a5c;}.toast-warning{background:#e8a020;color:#1e2740;}.toast-error{background:#d94f4f;}
@@ -80,6 +139,9 @@ canvas{max-width:100%;}
 .cb-name{font-size:.95rem;font-weight:700;}
 .cb-period{font-size:.8rem;opacity:.8;}
 .cb-badge{font-size:.72rem;font-weight:700;background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:20px;}
+.verified-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.7rem;font-weight:700;color:var(--teal);background:#e8f5f1;border:1px solid rgba(13,124,102,.25);border-radius:20px;padding:.15rem .55rem;margin-top:.35rem;letter-spacing:.02em;}
+.sroi-sub{font-size:.78rem;color:var(--gold);opacity:.9;margin-top:.2rem;letter-spacing:.02em;}
+.realtime-note{font-size:.75rem;color:var(--muted);font-style:italic;}
 </style>
 </head>
 <body>
@@ -107,17 +169,17 @@ canvas{max-width:100%;}
     <span class="cb-badge">לקוח פעיל</span>
   </div>
   <div class="page-title">מדדי אימפקט חברתי</div>
-  <div class="page-subtitle">מעקב אחר תועלת חברתית מדידה — נתונים מוכנים לדוח ESG | רבעון 2, 2026</div>
+  <div class="page-subtitle">נתונים מאומתים לדיווח ESG &nbsp;·&nbsp; מעקב אחר תועלת חברתית מדידה | רבעון 2, 2026</div>
   <div id="sk-zone"><div class="skeleton" style="height:100px;margin-bottom:.5rem"></div><div class="skeleton" style="height:100px;margin-bottom:.5rem"></div><div class="skeleton" style="height:100px;margin-bottom:2rem"></div></div>
   <div id="main-content" style="opacity:0">
     <div class="kpi-grid">
       <div class="kpi-card"><div class="kpi-label">השקעה כוללת</div><div class="kpi-value">₪480K</div><div class="kpi-sub">מ-Q1/2025 עד היום</div><div class="kpi-delta up">↑ 12% לעומת אשתקד</div></div>
-      <div class="kpi-card green"><div class="kpi-label">ערך חברתי שנוצר</div><div class="kpi-value">₪1.87M</div><div class="kpi-sub">לפי מדידת SROI</div><div class="kpi-delta up">↑ 18% לעומת אשתקד</div></div>
-      <div class="kpi-card gold"><div class="kpi-label">ילדים שנהנו</div><div class="kpi-value">1,240</div><div class="kpi-sub">מ-38 סדנאות</div><div class="kpi-delta up">↑ 31 ילד חדש החודש</div></div>
+      <div class="kpi-card green"><div class="kpi-label">ערך חברתי שנוצר</div><div class="kpi-value">₪1.87M</div><div class="kpi-sub">לפי מדידת SROI</div><div class="kpi-delta up">↑ 18% לעומת אשתקד</div><div class="verified-badge">✓ מדווח ומאומת</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">ילדים שנהנו</div><div class="kpi-value">1,240</div><div class="kpi-sub">מ-38 סדנאות</div><div class="kpi-delta up">↑ 31 ילד חדש החודש</div><div class="verified-badge">✓ מדווח ומאומת</div></div>
       <div class="kpi-card teal"><div class="kpi-label">שעות פנאי איכותיות</div><div class="kpi-value">9,680</div><div class="kpi-sub">שעות מצטברות</div><div class="kpi-delta up">↑ 7.8 שעות ממוצע לילד</div></div>
     </div>
     <div class="sroi-highlight">
-      <div><div class="big-number">3.9x</div><div class="label">יחס SROI — על כל ₪1 שהושקע, נוצרו ₪3.9 של ערך חברתי</div></div>
+      <div><div class="big-number">3.9x</div><div class="sroi-sub">ערך חברתי מוכח לכל שקל</div><div class="label">יחס SROI — על כל ₪1 שהושקע, נוצרו ₪3.9 של ערך חברתי</div></div>
       <div class="sroi-divider"></div>
       <div class="sroi-stat"><strong>₪387</strong><span>עלות ממוצעת לילד</span></div>
       <div class="sroi-divider"></div>
@@ -136,7 +198,7 @@ canvas{max-width:100%;}
     </div>
     <div class="charts-grid">
       <div class="card">
-        <div class="card-header"><div><div class="card-title">עלות מול ערך חברתי — לפי רבעון</div><div class="card-desc">השוואה בין השקעת הבנק (₪) לבין הערך החברתי שנוצר (SROI), לפי רבעון.</div></div><div class="badge">SROI</div></div>
+        <div class="card-header"><div><div class="card-title">עלות מול ערך חברתי — לפי רבעון</div><div class="card-desc">השוואה בין השקעת הבנק (₪) לבין הערך החברתי שנוצר (SROI), לפי רבעון.</div><div class="realtime-note">נתונים בזמן אמת | מוכן לדוח שנתי</div></div><div class="badge">SROI</div></div>
         <canvas id="sroiChart" height="220"></canvas>
       </div>
       <div class="card">

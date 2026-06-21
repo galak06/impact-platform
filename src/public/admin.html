@@ -58,6 +58,40 @@ tr:hover td{background:rgba(26,58,92,.04);}
 .check-item.required .check-label{font-weight:500;}
 .eval-footer{display:flex;gap:.75rem;margin-top:1.5rem;justify-content:flex-end;}
 .btn-outline{background:none;border:2px solid var(--border);color:var(--text);}.btn-eval{background:#e8ecf4;color:var(--blue);}
+
+@media (max-width: 768px) {
+  body{overflow-x:hidden;}
+  .page{padding:1rem;}
+  header{padding:0 1rem;}
+
+  /* Tabs: full width, scrollable row */
+  .admin-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;white-space:nowrap;}
+  .admin-tab{flex:1 0 auto;padding:.65rem 1rem;font-size:.88rem;}
+
+  /* Toolbar: stack vertically */
+  .toolbar{flex-direction:column;align-items:stretch;}
+  .search-input{width:100%;}
+  .toolbar .btn{width:100%;min-height:48px;}
+
+  /* Tables: horizontal scroll */
+  .card{padding:1rem;overflow-x:auto;}
+  #table-wrap{overflow-x:auto;}
+  #table-content{overflow-x:auto;}
+  #ws-content{overflow-x:auto;}
+  table{min-width:520px;}
+
+  /* Action buttons in rows: wrap */
+  .actions{flex-wrap:wrap;gap:.4rem;}
+  .btn-sm{min-height:48px;padding:.4rem .65rem;font-size:.8rem;}
+
+  /* General buttons */
+  .btn{min-height:48px;}
+
+  /* Modal: full width */
+  #eval-modal{width:100%;max-width:100%;border-radius:12px;padding:1.25rem;margin:0 .5rem;}
+  .eval-footer{flex-direction:column;}
+  .eval-footer .btn{width:100%;min-height:48px;}
+}
 </style>
 </head>
 <body>
