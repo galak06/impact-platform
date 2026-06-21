@@ -52,10 +52,6 @@ tr:hover td{background:rgba(26,58,92,.04);}
 <body>
 <script>(function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.addEventListener('DOMContentLoaded',function(){document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';});})();</script>
 <header>
-  <div class="header-left">
-    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
-    <div class="logo">Impact<span>Platform</span></div>
-  </div>
   <nav>
     <a href="index.html">בית</a>
     <a href="dashboard.html">מדדי אימפקט</a>
@@ -63,6 +59,10 @@ tr:hover td{background:rgba(26,58,92,.04);}
     <a href="order.html" class="active">הזמנות</a>
     <a href="admin.html">ניהול</a>
   </nav>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
 </header>
 <main class="page">
   <h1 class="page-title">הזמנות סדנאות</h1>

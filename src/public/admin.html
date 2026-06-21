@@ -49,14 +49,28 @@ tr:hover td{background:rgba(26,58,92,.04);}
 .toast-info{background:#1a3a5c;}
 .toast-warning{background:#e8a020;color:#1e2740;}
 .toast-error{background:#d94f4f;}
+#eval-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:1000;}
+#eval-modal{background:var(--white);border-radius:16px;padding:2rem;width:min(520px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.eval-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.eval-header h2{font-size:1.1rem;font-weight:700;}
+.eval-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--muted);line-height:1;}
+.eval-progress{margin-bottom:1.5rem;}
+#eval-score{font-size:.85rem;color:var(--muted);display:block;margin-bottom:.4rem;}
+.progress-bar{background:var(--border);border-radius:8px;height:8px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:8px;transition:width .3s,background .3s;}
+.check-item{display:flex;align-items:center;gap:.75rem;padding:.7rem .5rem;border-bottom:1px solid var(--border);cursor:pointer;font-size:.9rem;}
+.check-item:last-child{border-bottom:none;}
+.check-item input{width:18px;height:18px;accent-color:var(--teal);cursor:pointer;flex-shrink:0;}
+.check-label{flex:1;}
+.req-badge{font-size:.7rem;font-weight:700;background:#fff0f0;color:var(--red);padding:.15rem .45rem;border-radius:10px;}
+.check-item.required .check-label{font-weight:500;}
+.eval-footer{display:flex;gap:.75rem;margin-top:1.5rem;justify-content:flex-end;}
+.btn-outline{background:none;border:2px solid var(--border);color:var(--text);}
+.btn-eval{background:#e8ecf4;color:var(--blue);}
 </style>
 </head>
 <body>
 <header>
-  <div class="header-left">
-    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
-    <div class="logo">Impact<span>Platform</span></div>
-  </div>
   <nav>
     <a href="index.html">בית</a>
     <a href="dashboard.html">מדדי אימפקט</a>
@@ -64,6 +78,10 @@ tr:hover td{background:rgba(26,58,92,.04);}
     <a href="order.html">הזמנות</a>
     <a href="admin.html" class="active">ניהול</a>
   </nav>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
 </header>
 <div class="page">
   <div class="page-title">ניהול ספקים</div>
@@ -85,6 +103,7 @@ tr:hover td{background:rgba(26,58,92,.04);}
             <td><strong>מרכז יצירה תל אביב</strong></td><td>יצירה ואמנות</td>
             <td><span class="badge badge-active" id="status-1">פעיל</span></td><td>ינואר 2025</td>
             <td class="actions">
+              <button class="btn btn-sm btn-eval" onclick="openEval(1,'מרכז יצירה תל אביב')">הערכה</button>
               <button class="btn btn-sm btn-success" onclick="approveSupplier(1)">אשר</button>
               <button class="btn btn-sm btn-warn" onclick="suspendSupplier(1)">השהה</button>
               <button class="btn btn-sm btn-danger" onclick="deleteSupplier(1)">מחק</button>
@@ -94,6 +113,7 @@ tr:hover td{background:rgba(26,58,92,.04);}
             <td><strong>אקדמיה ספורטיבית</strong></td><td>ספורט ותנועה</td>
             <td><span class="badge badge-active" id="status-2">פעיל</span></td><td>פברואר 2025</td>
             <td class="actions">
+              <button class="btn btn-sm btn-eval" onclick="openEval(2,'אקדמיה ספורטיבית')">הערכה</button>
               <button class="btn btn-sm btn-success" onclick="approveSupplier(2)">אשר</button>
               <button class="btn btn-sm btn-warn" onclick="suspendSupplier(2)">השהה</button>
               <button class="btn btn-sm btn-danger" onclick="deleteSupplier(2)">מחק</button>
@@ -103,6 +123,7 @@ tr:hover td{background:rgba(26,58,92,.04);}
             <td><strong>מגמת קוד</strong></td><td>טכנולוגיה</td>
             <td><span class="badge badge-pending" id="status-3">ממתין</span></td><td>מרץ 2025</td>
             <td class="actions">
+              <button class="btn btn-sm btn-eval" onclick="openEval(3,'מגמת קוד')">הערכה</button>
               <button class="btn btn-sm btn-success" onclick="approveSupplier(3)">אשר</button>
               <button class="btn btn-sm btn-warn" onclick="suspendSupplier(3)">השהה</button>
               <button class="btn btn-sm btn-danger" onclick="deleteSupplier(3)">מחק</button>
@@ -112,6 +133,7 @@ tr:hover td{background:rgba(26,58,92,.04);}
             <td><strong>גן טבע ירושלים</strong></td><td>חינוך סביבתי</td>
             <td><span class="badge badge-active" id="status-4">פעיל</span></td><td>אפריל 2025</td>
             <td class="actions">
+              <button class="btn btn-sm btn-eval" onclick="openEval(4,'גן טבע ירושלים')">הערכה</button>
               <button class="btn btn-sm btn-success" onclick="approveSupplier(4)">אשר</button>
               <button class="btn btn-sm btn-warn" onclick="suspendSupplier(4)">השהה</button>
               <button class="btn btn-sm btn-danger" onclick="deleteSupplier(4)">מחק</button>
@@ -121,6 +143,7 @@ tr:hover td{background:rgba(26,58,92,.04);}
             <td><strong>סטודיו מוזיקלי</strong></td><td>מוזיקה</td>
             <td><span class="badge badge-pending" id="status-5">ממתין</span></td><td>מאי 2025</td>
             <td class="actions">
+              <button class="btn btn-sm btn-eval" onclick="openEval(5,'סטודיו מוזיקלי')">הערכה</button>
               <button class="btn btn-sm btn-success" onclick="approveSupplier(5)">אשר</button>
               <button class="btn btn-sm btn-warn" onclick="suspendSupplier(5)">השהה</button>
               <button class="btn btn-sm btn-danger" onclick="deleteSupplier(5)">מחק</button>
@@ -130,6 +153,7 @@ tr:hover td{background:rgba(26,58,92,.04);}
             <td><strong>חווית הספר</strong></td><td>תרבות וקריאה</td>
             <td><span class="badge badge-active" id="status-6">פעיל</span></td><td>יוני 2025</td>
             <td class="actions">
+              <button class="btn btn-sm btn-eval" onclick="openEval(6,'חווית הספר')">הערכה</button>
               <button class="btn btn-sm btn-success" onclick="approveSupplier(6)">אשר</button>
               <button class="btn btn-sm btn-warn" onclick="suspendSupplier(6)">השהה</button>
               <button class="btn btn-sm btn-danger" onclick="deleteSupplier(6)">מחק</button>
@@ -137,6 +161,23 @@ tr:hover td{background:rgba(26,58,92,.04);}
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+<div id="eval-overlay" style="display:none">
+  <div id="eval-modal">
+    <div class="eval-header">
+      <h2 id="eval-title">הערכת ספק</h2>
+      <button class="eval-close" onclick="closeEval()">✕</button>
+    </div>
+    <div class="eval-progress">
+      <span id="eval-score">0/8 קריטריונים עברו</span>
+      <div class="progress-bar"><div class="progress-fill" id="eval-bar" style="width:0%"></div></div>
+    </div>
+    <div id="eval-checklist"></div>
+    <div class="eval-footer">
+      <button class="btn" id="eval-approve-btn" onclick="evalApprove()" disabled>✓ אשר ספק</button>
+      <button class="btn btn-outline" onclick="closeEval()">סגור</button>
     </div>
   </div>
 </div>
@@ -149,6 +190,40 @@ function approveSupplier(id){const b=document.getElementById('status-'+id);b.tex
 function suspendSupplier(id){const b=document.getElementById('status-'+id);b.textContent='ממתין';b.className='badge badge-pending';showToast('ספק הושהה','warning');}
 function deleteSupplier(id){document.querySelector('tr[data-id="'+id+'"]').remove();showToast('ספק נמחק','error');}
 function filterTable(q){document.querySelectorAll('#supplier-body tr').forEach(function(row){row.style.display=row.textContent.includes(q)?'':'none';});}
+const CHECKLIST=[
+  {id:'c1',label:'ביטוח אחריות תקף',required:true},
+  {id:'c2',label:'רישיון עסק בתוקף',required:true},
+  {id:'c3',label:'ניסיון מוכח עם ילדים (2+ שנים)',required:true},
+  {id:'c4',label:'אישורי בטיחות ועזרה ראשונה',required:true},
+  {id:'c5',label:'העסקת עובדים לפי חוק',required:false},
+  {id:'c6',label:'אין עבר פלילי רלוונטי',required:true},
+  {id:'c7',label:'מסמכי ESG / אחריות חברתית',required:false},
+  {id:'c8',label:'המלצות מ-3 לקוחות לפחות',required:false}
+];
+let currentEvalId=null;
+function openEval(id,name){
+  currentEvalId=id;
+  document.getElementById('eval-title').textContent='הערכת ספק — '+name;
+  document.getElementById('eval-checklist').innerHTML=CHECKLIST.map(item=>`<label class="check-item${item.required?' required':''}"><input type="checkbox" data-required="${item.required}" onchange="updateScore()"><span class="check-label">${item.label}</span>${item.required?'<span class="req-badge">חובה</span>':''}</label>`).join('');
+  document.getElementById('eval-overlay').style.display='flex';
+  updateScore();
+}
+function closeEval(){document.getElementById('eval-overlay').style.display='none';currentEvalId=null;}
+function updateScore(){
+  const boxes=[...document.querySelectorAll('#eval-checklist input')];
+  const checked=boxes.filter(b=>b.checked).length;
+  const reqDone=[...document.querySelectorAll('#eval-checklist input[data-required="true"]')].every(b=>b.checked);
+  const pct=Math.round(checked/CHECKLIST.length*100);
+  document.getElementById('eval-score').textContent=checked+'/'+CHECKLIST.length+' קריטריונים עברו';
+  document.getElementById('eval-bar').style.cssText='width:'+pct+'%;background:'+(reqDone?'var(--green)':'var(--gold)');
+  document.getElementById('eval-approve-btn').disabled=!reqDone;
+}
+function evalApprove(){
+  if(!currentEvalId)return;
+  const b=document.getElementById('status-'+currentEvalId);
+  b.textContent='פעיל';b.className='badge badge-active';
+  closeEval();showToast('ספק אושר לאחר הערכה מלאה ✓','success');
+}
 </script>
 </body>
 </html>
