@@ -51,6 +51,11 @@ header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
 .toast-success{background:#1a9c6e;}
 .toast-info{background:#1a3a5c;}
 .toast-warning{background:#e8a020;color:#1e2740;}
+.client-banner{background:linear-gradient(135deg,#1a3a5c,#0d7c66);color:#fff;border-radius:10px;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;}
+.cb-info{display:flex;flex-direction:column;gap:.15rem;}
+.cb-name{font-size:.95rem;font-weight:700;}
+.cb-period{font-size:.8rem;opacity:.8;}
+.cb-badge{font-size:.72rem;font-weight:700;background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:20px;}
 </style>
 </head>
 <body>
@@ -59,18 +64,26 @@ header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
 </script>
 <header>
   <nav>
-    <a href="index.html">בית</a>
-    <a href="dashboard.html">מדדי אימפקט</a>
-    <a href="goals.html" class="active">יעדים</a>
-    <a href="order.html">הזמנות</a>
-    <a href="admin.html">ניהול</a>
-  </nav>
+  <a href="index.html">בית</a>
+  <a href="dashboard.html">מדדי אימפקט</a>
+  <a href="goals.html" class="active">יעדים</a>
+  <a href="order.html">סדנאות</a>
+  <a href="reports.html">דוחות</a>
+  <a href="client.html">פורטל לקוח</a>
+</nav>
   <div class="header-left">
     <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
     <div class="logo">Impact<span>Platform</span></div>
   </div>
 </header>
 <main class="page">
+  <div class="client-banner">
+    <div class="cb-info">
+      <span class="cb-name">🏙️ עיריית תל אביב-יפו</span>
+      <span class="cb-period">Q2 2026 · חוזה פעיל עד דצמבר 2026</span>
+    </div>
+    <span class="cb-badge">לקוח פעיל</span>
+  </div>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;">
     <div>
       <div class="page-title">יעדים רבעוניים — Q2/2026</div>
