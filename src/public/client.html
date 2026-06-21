@@ -261,8 +261,52 @@ const reportData={
 };
 function openReportModal(type){const d=reportData[type];if(!d)return;document.getElementById('report-modal-content').innerHTML=`<div class="rm-header"><div class="rm-logo">ImpactPlatform</div><div class="rm-title">${d.title}</div><div class="rm-sub">${d.sub}</div></div>${d.html}<div class="rm-footer">דוח זה הופק אוטומטית על ידי ImpactPlatform · ${new Date().toLocaleDateString('he-IL')}</div>`;document.getElementById('report-modal').style.display='flex';}
 function closeReportModal(){document.getElementById('report-modal').style.display='none';}
-const regions=[{name:'ירושלים',lat:31.768,lng:35.214,inv:85000,kids:180,ws:8,color:'#1a3a5c'},{name:'תל אביב',lat:32.085,lng:34.781,inv:120000,kids:280,ws:12,color:'#0d7c66'},{name:'חיפה',lat:32.794,lng:34.989,inv:75000,kids:160,ws:7,color:'#e8a020'},{name:'צפון',lat:32.900,lng:35.500,inv:60000,kids:130,ws:5,color:'#9b59b6'},{name:'דרום',lat:31.252,lng:34.791,inv:45000,kids:90,ws:4,color:'#d94f4f'},{name:'מרכז',lat:32.086,lng:34.887,inv:95000,kids:200,ws:9,color:'#1a9c6e'}];
-function showRegion(r){document.querySelectorAll('.region-card').forEach(c=>c.classList.remove('active'));const c=document.getElementById('rc-'+r.name);if(c)c.classList.add('active');document.getElementById('region-detail').innerHTML=`<div style="border-right:4px solid ${r.color};padding-right:.75rem;margin-bottom:.5rem"><strong style="font-size:1rem">${r.name}</strong><div style="font-size:.8rem;color:var(--muted)">Q2 2026</div></div><div class="rd-kpis"><div class="rd-kpi"><strong>₪${(r.inv/1000).toFixed(0)}K</strong><span>השקעה</span></div><div class="rd-kpi"><strong>${r.kids}</strong><span>ילדים</span></div><div class="rd-kpi"><strong>${r.ws}</strong><span>סדנאות</span></div><div class="rd-kpi"><strong>₪${Math.round(r.inv/r.kids)}</strong><span>לילד</span></div></div>`;}
+const regions=[
+  {name:'ירושלים',lat:31.768,lng:35.214,inv:85000,kids:180,ws:8,color:'#1a3a5c',workshops:[
+    {name:'חינוך סביבתי',provider:'גן טבע',date:'08.06',kids:42,status:'הושלם'},
+    {name:'תרבות וקריאה',provider:'חווית הספר',date:'14.06',kids:38,status:'הושלם'},
+    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'22.06',kids:45,status:'פעיל'},
+    {name:'מוזיקה',provider:'סטודיו מוזיקלי',date:'28.06',kids:35,status:'מתוכנן'}]},
+  {name:'תל אביב',lat:32.085,lng:34.781,inv:120000,kids:280,ws:12,color:'#0d7c66',workshops:[
+    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'05.06',kids:50,status:'הושלם'},
+    {name:'תרבות וקריאה',provider:'חווית הספר',date:'10.06',kids:40,status:'הושלם'},
+    {name:'טכנולוגיה וקוד',provider:'מגמת קוד',date:'17.06',kids:30,status:'הושלם'},
+    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'24.06',kids:60,status:'פעיל'}]},
+  {name:'חיפה',lat:32.794,lng:34.989,inv:75000,kids:160,ws:7,color:'#e8a020',workshops:[
+    {name:'מוזיקה',provider:'סטודיו מוזיקלי',date:'06.06',kids:35,status:'הושלם'},
+    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'13.06',kids:70,status:'הושלם'},
+    {name:'חינוך סביבתי',provider:'גן טבע',date:'20.06',kids:45,status:'פעיל'}]},
+  {name:'צפון',lat:32.900,lng:35.500,inv:60000,kids:130,ws:5,color:'#9b59b6',workshops:[
+    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'07.06',kids:50,status:'הושלם'},
+    {name:'חינוך סביבתי',provider:'גן טבע',date:'21.06',kids:45,status:'פעיל'},
+    {name:'תרבות וקריאה',provider:'חווית הספר',date:'27.06',kids:40,status:'מתוכנן'}]},
+  {name:'דרום',lat:31.252,lng:34.791,inv:45000,kids:90,ws:4,color:'#d94f4f',workshops:[
+    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'09.06',kids:70,status:'הושלם'},
+    {name:'תרבות וקריאה',provider:'חווית הספר',date:'23.06',kids:40,status:'מתוכנן'}]},
+  {name:'מרכז',lat:32.086,lng:34.887,inv:95000,kids:200,ws:9,color:'#1a9c6e',workshops:[
+    {name:'ספורט ותנועה',provider:'אקדמיה ספורטיבית',date:'04.06',kids:70,status:'הושלם'},
+    {name:'טכנולוגיה וקוד',provider:'מגמת קוד',date:'11.06',kids:30,status:'הושלם'},
+    {name:'יצירה ואמנות',provider:'מרכז יצירה',date:'18.06',kids:50,status:'פעיל'},
+    {name:'מוזיקה',provider:'סטודיו מוזיקלי',date:'25.06',kids:35,status:'מתוכנן'}]}
+];
+function showRegion(r){
+  document.querySelectorAll('.region-card').forEach(c=>c.classList.remove('active'));
+  const c=document.getElementById('rc-'+r.name);if(c)c.classList.add('active');
+  const wsRows=(r.workshops||[]).map(w=>{
+    const sc=w.status==='הושלם'?'done':w.status==='פעיל'?'active':w.status==='ממתין'?'pending':'planned';
+    return `<tr><td>${w.name}</td><td>${w.provider}</td><td>${w.date}</td><td>${w.kids}</td><td><span class="wst ${sc}">${w.status}</span></td></tr>`;
+  }).join('');
+  document.getElementById('region-detail').innerHTML=`
+    <div style="border-right:4px solid ${r.color};padding-right:.75rem;margin-bottom:.85rem;display:flex;justify-content:space-between;align-items:flex-start">
+      <div><strong style="font-size:1rem">${r.name}</strong><div style="font-size:.78rem;color:var(--muted)">Q2 2026</div></div>
+      <div style="display:flex;gap:.5rem">
+        <div style="text-align:center"><div style="font-size:1rem;font-weight:800">₪${(r.inv/1000).toFixed(0)}K</div><div style="font-size:.68rem;color:var(--muted)">השקעה</div></div>
+        <div style="text-align:center"><div style="font-size:1rem;font-weight:800">${r.kids}</div><div style="font-size:.68rem;color:var(--muted)">ילדים</div></div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;font-weight:700;margin-bottom:.4rem;color:var(--blue)">סדנאות באזור</div>
+    <table class="ws-tbl"><thead><tr><th>סדנה</th><th>ספק</th><th>תאריך</th><th>ילדים</th><th>סטטוס</th></tr></thead><tbody>${wsRows}</tbody></table>`;
+}
 function initMap(){window._mapInit=true;const map=L.map('map-el').setView([31.8,34.9],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:12}).addTo(map);const cards=document.getElementById('region-cards');regions.forEach(r=>{const circle=L.circle([r.lat,r.lng],{color:r.color,fillColor:r.color,fillOpacity:.5,radius:Math.sqrt(r.inv/1000)*1500,weight:2}).addTo(map);circle.bindTooltip(`<strong>${r.name}</strong><br>₪${(r.inv/1000).toFixed(0)}K`,{permanent:false,direction:'top'});circle.on('click',()=>showRegion(r));const div=document.createElement('div');div.className='region-card';div.id='rc-'+r.name;div.innerHTML=`<div class="rc-dot" style="background:${r.color}"></div><div><div class="rc-name">${r.name}</div><div class="rc-inv">₪${(r.inv/1000).toFixed(0)}K · ${r.ws} סדנאות</div></div>`;div.onclick=()=>showRegion(r);cards.appendChild(div);});}
 </script>
 </body>
