@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>מפת אימפקט | Impact Platform</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;}
+[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);min-height:100vh;}
+header{background:var(--blue);color:var(--white);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+.header-left{display:flex;align-items:center;gap:1rem;}
+.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem;line-height:1;}
+header .logo{font-size:1.25rem;font-weight:700;letter-spacing:.02em;}
+header .logo span{color:var(--gold);}
+header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start:1.5rem;font-size:.9rem;transition:color .2s;}
+header nav a:hover,header nav a.active{color:var(--white);}
+header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
+.page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.page-title{font-size:1.6rem;font-weight:700;margin-bottom:.25rem;}
+.page-subtitle{color:var(--muted);font-size:.95rem;margin-bottom:1.25rem;}
+.client-banner{background:linear-gradient(135deg,#1a3a5c,#0d7c66);color:#fff;border-radius:10px;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;}
+.cb-info{display:flex;flex-direction:column;gap:.15rem;}
+.cb-name{font-size:.95rem;font-weight:700;}
+.cb-period{font-size:.8rem;opacity:.8;}
+.cb-badge{font-size:.72rem;font-weight:700;background:rgba(255,255,255,.2);padding:.25rem .75rem;border-radius:20px;}
+.map-layout{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;margin-bottom:1.5rem;}
+@media(max-width:800px){.map-layout{grid-template-columns:1fr;}}
+#map-container{height:500px;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+#region-panel{display:flex;flex-direction:column;gap:.75rem;overflow-y:auto;max-height:500px;}
+.region-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.75rem;}
+.region-card:hover,.region-card.active{border-color:var(--teal);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+.rc-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.rc-info{flex:1;}
+.rc-name{font-size:.88rem;font-weight:700;}
+.rc-inv{font-size:.8rem;color:var(--muted);}
+.rc-bar-wrap{width:80px;height:6px;background:var(--light);border-radius:3px;overflow:hidden;}
+.rc-bar{height:100%;border-radius:3px;transition:width .3s;}
+#region-detail{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-top:.25rem;}
+.rd-name{font-size:1.1rem;font-weight:800;}
+.rd-period{font-size:.8rem;color:var(--muted);}
+.rd-kpis{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.85rem;}
+.rd-kpi{background:var(--light);border-radius:8px;padding:.6rem;text-align:center;}
+.rd-kpi strong{display:block;font-size:1.2rem;font-weight:800;}
+.rd-kpi span{font-size:.75rem;color:var(--muted);}
+.totals-bar{display:flex;gap:2rem;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem 1.5rem;flex-wrap:wrap;}
+.tb-item{display:flex;flex-direction:column;gap:.2rem;}
+.tb-item strong{font-size:1.25rem;font-weight:800;}
+.tb-item span{font-size:.78rem;color:var(--muted);}
+.toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-info{background:#1a3a5c;}
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="index.html">בית</a>
+    <a href="dashboard.html">מדדי אימפקט</a>
+    <a href="goals.html">יעדים</a>
+    <a href="order.html">סדנאות</a>
+    <a href="reports.html">דוחות</a>
+    <a href="map.html" class="active">מפת אימפקט</a>
+    <a href="client.html">פורטל לקוח</a>
+  </nav>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="client-banner">
+    <div class="cb-info">
+      <span class="cb-name">🏙️ הרשות המקומית</span>
+      <span class="cb-period">Q2 2026 · חוזה פעיל עד דצמבר 2026</span>
+    </div>
+    <span class="cb-badge">לקוח פעיל</span>
+  </div>
+
+  <div class="page-title">מפת אימפקט לפי אזור</div>
+  <div class="page-subtitle">לחצו על אזור במפה לפרטי ההשקעה וסטטיסטיקות</div>
+
+  <div class="map-layout">
+    <div id="map-container"></div>
+    <div id="region-panel">
+      <div id="region-cards"></div>
+      <div id="region-detail"><div class="rd-name" style="color:var(--muted);font-size:.9rem;text-align:center;padding:1rem 0;">לחצו על אזור לפרטים</div></div>
+    </div>
+  </div>
+
+  <div class="totals-bar">
+    <div class="tb-item"><strong>₪480K</strong><span>סה"כ השקעה</span></div>
+    <div class="tb-item"><strong>1,040</strong><span>ילדים</span></div>
+    <div class="tb-item"><strong>45</strong><span>סדנאות</span></div>
+    <div class="tb-item"><strong>6</strong><span>אזורים פעילים</span></div>
+  </div>
+</div>
+
+<div class="toast toast-info" id="toast"></div>
+
+<script>
+const regions=[
+  {name:'ירושלים',lat:31.768,lng:35.214,investment:85000,children:180,workshops:8,color:'#1a3a5c'},
+  {name:'תל אביב',lat:32.085,lng:34.781,investment:120000,children:280,workshops:12,color:'#0d7c66'},
+  {name:'חיפה',lat:32.794,lng:34.989,investment:75000,children:160,workshops:7,color:'#e8a020'},
+  {name:'צפון',lat:32.900,lng:35.500,investment:60000,children:130,workshops:5,color:'#9b59b6'},
+  {name:'דרום',lat:31.252,lng:34.791,investment:45000,children:90,workshops:4,color:'#d94f4f'},
+  {name:'מרכז',lat:32.086,lng:34.887,investment:95000,children:200,workshops:9,color:'#1a9c6e'}
+];
+
+const maxInv=Math.max(...regions.map(r=>r.investment));
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+function showRegion(r){
+  document.querySelectorAll('.region-card').forEach(c=>c.classList.remove('active'));
+  const card=document.getElementById('rc-'+r.name);
+  if(card)card.classList.add('active');
+  document.getElementById('region-detail').innerHTML=`
+    <div class="rd-header" style="border-right:4px solid ${r.color};padding-right:.75rem">
+      <div class="rd-name">${r.name}</div>
+      <div class="rd-period">Q2 2026</div>
+    </div>
+    <div class="rd-kpis">
+      <div class="rd-kpi"><strong>₪${(r.investment/1000).toFixed(0)}K</strong><span>השקעה</span></div>
+      <div class="rd-kpi"><strong>${r.children}</strong><span>ילדים</span></div>
+      <div class="rd-kpi"><strong>${r.workshops}</strong><span>סדנאות</span></div>
+      <div class="rd-kpi"><strong>₪${Math.round(r.investment/r.children)}</strong><span>לילד</span></div>
+    </div>`;
+}
+
+// Build region cards
+const cardsEl=document.getElementById('region-cards');
+regions.forEach((r,i)=>{
+  const pct=Math.round((r.investment/maxInv)*100);
+  const div=document.createElement('div');
+  div.className='region-card';
+  div.id='rc-'+r.name;
+  div.innerHTML=`<div class="rc-dot" style="background:${r.color}"></div>
+    <div class="rc-info"><div class="rc-name">${r.name}</div><div class="rc-inv">₪${(r.investment/1000).toFixed(0)}K</div></div>
+    <div class="rc-bar-wrap"><div class="rc-bar" style="width:${pct}%;background:${r.color}"></div></div>`;
+  div.onclick=()=>showRegion(r);
+  cardsEl.appendChild(div);
+});
+
+// Init map after DOM ready
+document.addEventListener('DOMContentLoaded',()=>{
+  const map=L.map('map-container').setView([31.8,34.9],8);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:12}).addTo(map);
+
+  regions.forEach(r=>{
+    const radius=Math.sqrt(r.investment/1000)*1500;
+    const circle=L.circle([r.lat,r.lng],{color:r.color,fillColor:r.color,fillOpacity:.5,radius,weight:2}).addTo(map);
+    circle.bindTooltip(`<strong>${r.name}</strong><br>₪${(r.investment/1000).toFixed(0)}K`,{permanent:false,direction:'top'});
+    circle.on('click',()=>{showRegion(r);showToast(`אזור ${r.name} נבחר`);});
+  });
+});
+
+// Dark mode
+const root=document.documentElement;
+const themeBtn=document.getElementById('themeBtn');
+const saved=localStorage.getItem('theme');
+if(saved==='dark'){root.setAttribute('data-theme','dark');themeBtn.textContent='☀️';}
+themeBtn.onclick=()=>{
+  const dark=root.getAttribute('data-theme')==='dark';
+  root.setAttribute('data-theme',dark?'':'dark');
+  themeBtn.textContent=dark?'🌙':'☀️';
+  localStorage.setItem('theme',dark?'light':'dark');
+};
+</script>
+</body>
+</html>
