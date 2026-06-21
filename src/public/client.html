@@ -81,47 +81,40 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
   </div>
 
   <div id="tab-dashboard" class="tab-panel active">
+    <div class="sroi-hero">
+      <div><div style="font-size:.85rem;opacity:.75;margin-bottom:.2rem">Social Return on Investment — Q2 2026</div><div style="font-size:3.8rem;font-weight:900;color:var(--gold);line-height:1">3.9x</div><div style="font-size:.95rem;margin:.4rem 0 .2rem">על כל ₪1 שהשקעתם — ₪3.9 ערך חברתי נוצר לקהילה</div><button class="btn" style="margin-top:.6rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);font-size:.82rem;padding:.4rem 1rem" onclick="cTab('reports',document.querySelectorAll('.tab-btn')[3])">📄 צפה בדוח המלא</button></div>
+      <div class="sroi-stats"><div class="ss"><strong>₪480K</strong><span>השקעה</span></div><div class="ss"><strong>₪1.87M</strong><span>ערך חברתי</span></div><div class="ss"><strong>1,240</strong><span>ילדים</span></div><div class="ss"><strong>9,680</strong><span>שעות פנאי</span></div></div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-label">ילדים שקיבלו שירות</div><div class="kpi-val">1,240</div><div class="kpi-sub" style="color:var(--green)">↑ 12% מ-Q1</div></div>
+      <div class="kpi-card gold"><div class="kpi-label">סדנאות הושלמו</div><div class="kpi-val">38</div><div class="kpi-sub">מתוך 40 מתוכנן</div></div>
+      <div class="kpi-card teal"><div class="kpi-label">שעות פנאי</div><div class="kpi-val">9,680</div><div class="kpi-sub">שעות מצטברות</div></div>
+      <div class="kpi-card" style="border-right-color:#8b5cf6"><div class="kpi-label">שביעות רצון הורים</div><div class="kpi-val">94%</div><div class="kpi-sub">ממוצע הרבעון</div></div>
+    </div>
     <div class="dash-grid">
       <div class="dash-panel">
-        <div class="dp-header"><div class="dp-title">🔔 התראות ופעולות נדרשות</div><span class="dp-link" onclick="showToast('ההתראות סומנו כנקראו','info')">סמן כנקרא</span></div>
-        <div class="alert-item warn"><div class="ai-icon">⚠️</div><div><div class="ai-title">אישור ממתין לפעולתך</div><div class="ai-sub">סדנת חינוך סביבתי — דדליין 22.06</div></div></div>
-        <div class="alert-item info"><div class="ai-icon">📄</div><div><div class="ai-title">דוח Q2 2026 מוכן</div><div class="ai-sub">מוכן לסקירה ושיתוף עם הספונסר</div></div></div>
-        <div class="alert-item success"><div class="ai-icon">✅</div><div><div class="ai-title">תשלום אושר</div><div class="ai-sub">מרכז יצירה — ₪8,100 בעיבוד</div></div></div>
-        <div class="alert-item budget"><div class="ai-icon">💰</div><div><div class="ai-title">72% מהתקציב נוצל</div><div class="ai-sub">נותר ₪28K — שקול לחדש הסכם</div></div></div>
+        <div class="dp-header"><div class="dp-title">📋 סדנאות אחרונות</div><span class="dp-link" onclick="cTab('workshops',document.querySelectorAll('.tab-btn')[2])">כל הסדנאות →</span></div>
+        <div class="up-item"><div class="up-date" style="background:var(--teal)"><div class="up-d">18</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">יצירה ואמנות</div><div class="up-meta">מרכז יצירה · תל אביב · 45 ילדים</div><span class="up-tag" style="background:#e8f5f1;color:var(--teal)">הושלם ✅</span></div></div>
+        <div class="up-item"><div class="up-date" style="background:var(--blue)"><div class="up-d">15</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">ספורט ותנועה</div><div class="up-meta">האקדמיה הספורטיבית · רמת גן · 28 ילדים</div><span class="up-tag" style="background:#e8f5f1;color:var(--teal)">הושלם ✅</span></div></div>
+        <div class="up-item"><div class="up-date" style="background:#8b5cf6"><div class="up-d">12</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">טכנולוגיה וקוד</div><div class="up-meta">מגמת קוד · הרצליה · 27 ילדים</div><span class="up-tag" style="background:#e8f5f1;color:var(--teal)">הושלם ✅</span></div></div>
+        <div class="up-item"><div class="up-date" style="background:var(--gold)"><div class="up-d">22</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">חינוך סביבתי</div><div class="up-meta">גן טבע · ירושלים · ממתין לאישור</div><span class="up-tag" style="background:#fff3e0;color:var(--gold)">⚠️ ממתין</span></div></div>
       </div>
       <div class="dash-panel">
-        <div class="dp-header"><div class="dp-title">📋 סדנאות פעילות — יוני 2026</div><span class="dp-link" onclick="cTab('workshops',document.querySelectorAll('.tab-btn')[2])">הצג הכל →</span></div>
-        <table class="ws-tbl"><thead><tr><th>שם הסדנה</th><th>ספק</th><th>תאריך</th><th>משתתפים</th><th>סטטוס</th></tr></thead><tbody>
-          <tr><td>יצירה ואמנות</td><td>מרכז יצירה</td><td>12.06</td><td>45/50</td><td><span class="wst done">הושלם</span></td></tr>
-          <tr><td>ספורט ותנועה</td><td>האקדמיה</td><td>15.06</td><td>28/30</td><td><span class="wst active">פעיל</span></td></tr>
-          <tr><td>טכנולוגיה וקוד</td><td>מגמת קוד</td><td>18.06</td><td>27/30</td><td><span class="wst active">פעיל</span></td></tr>
-          <tr><td>חינוך סביבתי</td><td>גן טבע</td><td>22.06</td><td>—</td><td><span class="wst pending">ממתין</span></td></tr>
-          <tr><td>מוזיקה</td><td>סטודיו</td><td>25.06</td><td>—</td><td><span class="wst planned">מתוכנן</span></td></tr>
-        </tbody></table>
-      </div>
-      <div class="dash-panel">
-        <div class="dp-header"><div class="dp-title">📅 סדנאות קרובות</div><span class="dp-link" onclick="cTab('workshops',document.querySelectorAll('.tab-btn')[2])">יומן מלא →</span></div>
-        <div class="up-item"><div class="up-date" style="background:var(--blue)"><div class="up-d">18</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">טכנולוגיה וקוד — מחזור ב'</div><div class="up-meta">מגמת קוד · הרצליה · 08:00–12:00 · 27 ילדים</div><span class="up-tag">מגמת קוד</span></div></div>
-        <div class="up-item"><div class="up-date" style="background:var(--gold)"><div class="up-d">22</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">⚠️ חינוך סביבתי</div><div class="up-meta">גן טבע · ירושלים · 12:00–15:00 · ממתין לאישור</div><span class="up-tag" style="background:#fff3e0;color:var(--gold)">גן טבע</span></div></div>
-        <div class="up-item"><div class="up-date" style="background:var(--teal)"><div class="up-d">25</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">מוזיקה — מחזור א'</div><div class="up-meta">סטודיו מוזיקלי · חיפה · 09:00–11:00 · 35 ילדים</div><span class="up-tag">סטודיו מוזיקלי</span></div></div>
-      </div>
-      <div class="dash-panel">
-        <div class="dp-header"><div class="dp-title">📈 מדדי אימפקט חברתי — מצטבר</div><span class="dp-link" onclick="showToast('מוריד דוח לספונסר...','success')">הורד לספונסר →</span></div>
-        <div class="ibr"><div class="ibr-lbl"><span>ילדים שנגישנו להם שירות</span><span>1,025 / 1,240 יעד שנתי</span></div><div class="ibr-track"><div class="ibr-fill" style="width:82.7%;background:#3b82f6"></div></div></div>
-        <div class="ibr"><div class="ibr-lbl"><span>שיעור השלמת סדנאות</span><span>88.7%</span></div><div class="ibr-track"><div class="ibr-fill" style="width:88.7%;background:var(--green)"></div></div></div>
+        <div class="dp-header"><div class="dp-title">📈 מדדי אימפקט חברתי</div><span class="dp-link" onclick="showToast('מוריד לספונסר...','success')">הורד לספונסר →</span></div>
+        <div class="ibr"><div class="ibr-lbl"><span>ילדים שנגישנו</span><span>1,025 / 1,240</span></div><div class="ibr-track"><div class="ibr-fill" style="width:82.7%;background:#3b82f6"></div></div></div>
+        <div class="ibr"><div class="ibr-lbl"><span>השלמת סדנאות</span><span>88.7%</span></div><div class="ibr-track"><div class="ibr-fill" style="width:88.7%;background:var(--green)"></div></div></div>
         <div class="ibr"><div class="ibr-lbl"><span>שביעות רצון הורים</span><span>94%</span></div><div class="ibr-track"><div class="ibr-fill" style="width:94%;background:#8b5cf6"></div></div></div>
-        <div class="ibr"><div class="ibr-lbl"><span>ניצול תקציב ספונסר</span><span>72.6%</span></div><div class="ibr-track"><div class="ibr-fill" style="width:72.6%;background:var(--gold)"></div></div></div>
+        <div class="ibr"><div class="ibr-lbl"><span>ניצול תקציב</span><span>72.6%</span></div><div class="ibr-track"><div class="ibr-fill" style="width:72.6%;background:var(--gold)"></div></div></div>
+        <div style="background:#e8f5f1;border-radius:8px;padding:.6rem .85rem;margin-top:.6rem;font-size:.8rem;color:#1a6b4a;font-weight:600">🎯 SROI 3.9x — על כל ₪1 השקעה, ₪3.9 ערך חברתי נוצר</div>
       </div>
     </div>
+    <div style="background:#fff9ec;border:1px solid #f0d48a;border-radius:10px;padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-top:1rem"><span style="font-size:.84rem">⚠️ <strong>פעולה נדרשת:</strong> אישור ממתין לסדנת חינוך סביבתי — דדליין 22.06</span><button class="btn-sm" onclick="showToast('פותח פרטי הסדנה...','info')">טפל בזה →</button></div>
   </div>
 
   <div id="tab-goals" class="tab-panel">
     <div class="goals-hdr">
       <div><div style="font-size:1rem;font-weight:800">יעדים שנתיים 2026 — מעקב חי</div><div style="font-size:.75rem;color:var(--muted)">עודכן: היום, 15:04 · מחצית ראשונה הסתיימה ב-30.06</div></div>
-      <div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center">
-        <button class="per-btn" onclick="selPer(this)">Q1</button><button class="per-btn" onclick="selPer(this)">Q2</button><button class="per-btn active" onclick="selPer(this)">H1 מצטבר</button><button class="per-btn" onclick="selPer(this)">שנתי</button>
-        <button class="btn-sm" onclick="showToast('מייצא לממונים...','info')" style="margin-right:.5rem">📄 ייצוא לממונים</button>
-      </div>
+      <div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center"><button class="per-btn" onclick="selPer(this)">Q1</button><button class="per-btn" onclick="selPer(this)">Q2</button><button class="per-btn active" onclick="selPer(this)">H1 מצטבר</button><button class="per-btn" onclick="selPer(this)">שנתי</button><button class="btn-sm" onclick="showToast('מייצא לממונים...','info')" style="margin-right:.5rem">📄 ייצוא לממונים</button></div>
     </div>
     <div class="gkpi-grid">
       <div class="gkpi-card" style="border-top:4px solid var(--green)"><div class="gkpi-lbl">ילדים שקיבלו שירות</div><div class="gkpi-val">847</div><div class="gkpi-sub">יעד שנתי: 1,000</div><div class="gkpi-status ok">✅ על המסלול — 84.7%</div></div>
