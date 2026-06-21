@@ -21,14 +21,18 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
 .val-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;transition:all .2s}
 .val-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.09)}
 .val-icon{font-size:1.8rem;margin-bottom:.5rem}.val-title{font-size:.9rem;font-weight:700;margin-bottom:.3rem}.val-sub{font-size:.8rem;color:var(--muted);line-height:1.5}
-.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem}
-.step{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1rem .75rem;text-align:center;position:relative}
-.step.done{border-color:#b3e0d2;background:#f0faf6}.step.active{border-color:var(--teal);background:#f0faf6;box-shadow:0 4px 12px rgba(13,124,102,.12)}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;font-size:.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem}
-.step.done .step-num{background:var(--green)}.step.active .step-num{background:var(--teal)}
-.step-icon{font-size:1.35rem;margin-bottom:.3rem}.step-title{font-size:.8rem;font-weight:700;margin-bottom:.2rem}.step-sub{font-size:.72rem;color:var(--muted);line-height:1.35}
-.step-tag{display:inline-block;font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:10px;margin-top:.4rem}
-.tag-done{background:#e8f5f1;color:var(--green)}.tag-active{background:#e0f0ff;color:var(--blue)}.tag-pending{background:#fff3e0;color:#b45309}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;margin-bottom:1rem}
+.flow-col{display:flex;flex-direction:column;gap:.6rem}
+.flow-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--border);padding:0 .5rem;align-self:center}
+.flow-header{text-align:center;border-radius:10px 10px 0 0;padding:.6rem .75rem;font-size:.8rem;font-weight:800}
+.fh-client{background:#e0f5f1;color:var(--teal)}.fh-us{background:var(--blue);color:#fff}.fh-result{background:#e8f5e1;color:var(--green)}
+.flow-step{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.85rem .75rem;text-align:center;flex:1}
+.flow-col.us .flow-step{border-color:#c7d9f0;background:#f4f8ff}
+.flow-col.result .flow-step{border-color:#b3e0d2;background:#f0faf6}
+.fs-icon{font-size:1.3rem;margin-bottom:.25rem}.fs-title{font-size:.8rem;font-weight:700;margin-bottom:.2rem}.fs-sub{font-size:.72rem;color:var(--muted);line-height:1.35}
+.flow-badge{text-align:center;margin-top:.35rem;font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;display:inline-block}
+.fb-client{background:#e0f5f1;color:var(--teal)}.fb-us{background:#dbeafe;color:var(--blue)}.fb-result{background:#dcfce7;color:var(--green)}
+@media(max-width:700px){.flow{grid-template-columns:1fr;}.flow-arrow{transform:rotate(90deg);padding:.25rem 0;}}
 .hero{text-align:center;margin-bottom:3rem}
 .hero h1{font-size:2.2rem;font-weight:800;margin-bottom:.75rem;background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero p{font-size:1.05rem;color:var(--muted);max-width:480px;margin:0 auto 1.5rem;line-height:1.6}
@@ -119,15 +123,26 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
 
   <!-- Approval process -->
   <div class="sect">
-    <h2>תהליך אישור סדנה — מ-A ועד ביצוע</h2>
-    <p>תהליך שקוף וברור — אתם בוחרים, אנחנו מתאמים ומדווחים</p>
-    <div class="steps-grid">
-      <div class="step done"><div class="step-num">1</div><div class="step-icon">🔍</div><div class="step-title">בחירת סדנה</div><div class="step-sub">הלקוח בוחר סדנה מהקטלוג המאושר לפי קטגוריה, מיקום ותקציב</div><span class="step-tag tag-done">הושלם</span></div>
-      <div class="step done"><div class="step-num">2</div><div class="step-icon">📝</div><div class="step-title">הגשת בקשה</div><div class="step-sub">בחירת תאריך, מספר משתתפים ובקשות מיוחדות — הכל דרך הפורטל</div><span class="step-tag tag-done">הושלם</span></div>
-      <div class="step active"><div class="step-num">3</div><div class="step-icon">🔎</div><div class="step-title">בדיקה פנימית</div><div class="step-sub">צוות ImpactPlatform בודק התאמה לתקציב, תאריך ודרישות הספק</div><span class="step-tag tag-active">בתהליך</span></div>
-      <div class="step"><div class="step-num">4</div><div class="step-icon">📞</div><div class="step-title">תיאום עם ספק</div><div class="step-sub">קביעת מועד, לוגיסטיקה ואישור כל הפרטים מול הספק המאושר</div><span class="step-tag tag-pending">ממתין</span></div>
-      <div class="step"><div class="step-num">5</div><div class="step-icon">🎉</div><div class="step-title">ביצוע הסדנה</div><div class="step-sub">הסדנה מתקיימת — עם מדריכים מוסמכים ודיווח נוכחות בזמן אמת</div><span class="step-tag tag-pending">ממתין</span></div>
-      <div class="step"><div class="step-num">6</div><div class="step-icon">📊</div><div class="step-title">דוח אימפקט</div><div class="step-sub">נוצר דוח אוטומטי: מספר משתתפים, שביעות רצון, ותרומה ל-SROI</div><span class="step-tag tag-pending">ממתין</span></div>
+    <h2>אתם בוחרים — אנחנו עושים את השאר</h2>
+    <p>שני קליקים מצדכם. כל הבירוקרטיה, הלוגיסטיקה והמדידה — עלינו.</p>
+    <div class="flow">
+      <div class="flow-col client">
+        <div class="flow-header fh-client">👤 אתם עושים</div>
+        <div class="flow-step"><div class="fs-icon">🔍</div><div class="fs-title">בוחרים סדנה</div><div class="fs-sub">מהקטלוג המאושר — לפי קטגוריה, מיקום ותקציב</div><div class="flow-badge fb-client">קליק אחד</div></div>
+        <div class="flow-step"><div class="fs-icon">📝</div><div class="fs-title">מגישים בקשה</div><div class="fs-sub">תאריך, מספר משתתפים ובקשות מיוחדות — דרך הפורטל</div><div class="flow-badge fb-client">קליק אחד</div></div>
+      </div>
+      <div class="flow-arrow">←</div>
+      <div class="flow-col us">
+        <div class="flow-header fh-us">⚙️ ImpactPlatform מטפלת</div>
+        <div class="flow-step"><div class="fs-icon">🔎</div><div class="fs-title">בדיקה ואישור פנימי</div><div class="fs-sub">התאמה לתקציב, תאריך ודרישות הספק</div></div>
+        <div class="flow-step"><div class="fs-icon">📞</div><div class="fs-title">תיאום מול הספק</div><div class="fs-sub">לוגיסטיקה, הסכם ואישור כל הפרטים</div></div>
+        <div class="flow-step"><div class="fs-icon">🎉</div><div class="fs-title">ביצוע וניהול</div><div class="fs-sub">מדריכים מוסמכים ודיווח נוכחות בזמן אמת</div></div>
+      </div>
+      <div class="flow-arrow">←</div>
+      <div class="flow-col result">
+        <div class="flow-header fh-result">📊 אתם מקבלים</div>
+        <div class="flow-step" style="flex:1"><div class="fs-icon">📈</div><div class="fs-title">דוח אימפקט מוכן</div><div class="fs-sub">SROI, נוכחות, שביעות רצון — אוטומטי, מוכן לדירקטוריון</div><div class="flow-badge fb-result">ללא מאמץ</div></div>
+      </div>
     </div>
   </div>
 </main>
