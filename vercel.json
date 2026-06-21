@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "impact-platform-demo",
-  "public": true,
+  "outputDirectory": "src/public",
   "rewrites": [
     { "source": "/", "destination": "/index.html" }
   ]
