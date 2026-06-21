@@ -210,6 +210,57 @@ function openBook(name,provider,price,cap,icon,loc){bookPrice=parseInt(price);do
 function calcTotal(){const k=parseInt(document.getElementById('book-kids').value||0);document.getElementById('book-total').textContent='סה"כ: ₪'+(bookPrice*k).toLocaleString('he-IL');}
 function closeBook(){document.getElementById('book-panel').style.display='none';}
 function submitBook(){const date=document.getElementById('book-date').value;const kids=document.getElementById('book-kids').value;if(!date||!kids){showToast('נא למלא תאריך ומספר ילדים','warning');return;}closeBook();showToast('בקשת הזמנה נשלחה — '+kids+' ילדים ✓','success');}
+const reportData={
+  sroi:{title:'דוח SROI רבעוני — Q2 2026',sub:'מתודולוגיית Social Value International · תקן GRI 203',html:`
+    <div class="rm-sroi"><div style="font-size:.85rem;opacity:.8;margin-bottom:.25rem">יחס Social Return on Investment</div><div class="rm-sroi-num">3.9x</div><div style="font-size:.85rem;margin-top:.25rem">על כל ₪1 שהושקע — נוצרו ₪3.9 של ערך חברתי</div></div>
+    <div class="rm-kpis"><div class="rm-kpi"><strong>₪480K</strong><span>השקעה כוללת</span></div><div class="rm-kpi"><strong>₪1.87M</strong><span>ערך חברתי</span></div><div class="rm-kpi"><strong>1,240</strong><span>ילדים</span></div><div class="rm-kpi"><strong>9,680</strong><span>שעות פנאי</span></div></div>
+    <div class="rm-section"><h4>פירוט השקעה לפי קטגוריה</h4>
+      <div class="rm-row"><span>סדנאות יצירה ואמנות</span><span>₪156,000</span></div>
+      <div class="rm-row"><span>סדנאות ספורט ותנועה</span><span>₪120,000</span></div>
+      <div class="rm-row"><span>סדנאות טכנולוגיה</span><span>₪98,400</span></div>
+      <div class="rm-row"><span>סדנאות חינוך סביבתי</span><span>₪72,000</span></div>
+      <div class="rm-row"><span>עלויות תפעול</span><span>₪33,600</span></div>
+    </div>
+    <div class="rm-section"><h4>מדדי ערך חברתי (UN SDGs)</h4>
+      <div class="rm-row"><span>SDG 4 — חינוך איכותי</span><span>₪680,000</span></div>
+      <div class="rm-row"><span>SDG 3 — בריאות ורווחה</span><span>₪540,000</span></div>
+      <div class="rm-row"><span>SDG 10 — צמצום אי-שוויון</span><span>₪350,000</span></div>
+      <div class="rm-row"><span>SDG 11 — קהילות ברות-קיימא</span><span>₪300,000</span></div>
+    </div>
+    <span class="rm-badge">GRI 203 · מאומת</span><span class="rm-badge" style="margin-right:.5rem;background:#eef2ff;color:#4f46e5">SROI Q2 2026</span>`},
+  activity:{title:'דוח פעילות סדנאות — יוני 2026',sub:'סיכום פעילות וסטטיסטיקות משתתפים',html:`
+    <div class="rm-kpis"><div class="rm-kpi"><strong>38</strong><span>סדנאות</span></div><div class="rm-kpi"><strong>1,240</strong><span>ילדים</span></div><div class="rm-kpi"><strong>94%</strong><span>שביעות רצון</span></div><div class="rm-kpi"><strong>88.7%</strong><span>השלמה</span></div></div>
+    <div class="rm-section"><h4>סדנאות לפי ספק</h4>
+      <div class="rm-row"><span>מרכז יצירה — תל אביב</span><span>12 סדנאות · 480 ילדים</span></div>
+      <div class="rm-row"><span>אקדמיה ספורטיבית — רמת גן</span><span>9 סדנאות · 320 ילדים</span></div>
+      <div class="rm-row"><span>מגמת קוד — הרצליה</span><span>7 סדנאות · 196 ילדים</span></div>
+      <div class="rm-row"><span>גן טבע — ירושלים</span><span>6 סדנאות · 156 ילדים</span></div>
+      <div class="rm-row"><span>סטודיו מוזיקלי — חיפה</span><span>4 סדנאות · 88 ילדים</span></div>
+    </div>
+    <div class="rm-section"><h4>התפלגות גיל משתתפים</h4>
+      <div class="rm-row"><span>גיל 5–8</span><span>312 ילדים (25%)</span></div>
+      <div class="rm-row"><span>גיל 9–12</span><span>496 ילדים (40%)</span></div>
+      <div class="rm-row"><span>גיל 13–18</span><span>432 ילדים (35%)</span></div>
+    </div>`},
+  esg:{title:'דוח ESG שנתי — 2025',sub:'קיימות, אחריות חברתית וממשל תאגידי',html:`
+    <div class="rm-kpis"><div class="rm-kpi"><strong>A</strong><span>דירוג ESG</span></div><div class="rm-kpi"><strong>3.9x</strong><span>SROI</span></div><div class="rm-kpi"><strong>12</strong><span>SDGs</span></div><div class="rm-kpi"><strong>₪1.87M</strong><span>ערך חברתי</span></div></div>
+    <div class="rm-section"><h4>E — סביבה (Environmental)</h4>
+      <div class="rm-row"><span>סדנאות חינוך סביבתי</span><span>18 סדנאות · 468 ילדים</span></div>
+      <div class="rm-row"><span>הפחתת פסולת בסדנאות</span><span>↓ 32% לעומת 2024</span></div>
+    </div>
+    <div class="rm-section"><h4>S — חברה (Social)</h4>
+      <div class="rm-row"><span>ילדים בסיכון שנגישנו</span><span>340 (27%)</span></div>
+      <div class="rm-row"><span>שכונות פריפריה</span><span>8 שכונות</span></div>
+      <div class="rm-row"><span>שביעות רצון הורים</span><span>94%</span></div>
+    </div>
+    <div class="rm-section"><h4>G — ממשל (Governance)</h4>
+      <div class="rm-row"><span>ספקים מוערכים ומאושרים</span><span>24 מתוך 24</span></div>
+      <div class="rm-row"><span>דוחות SROI שהופקו</span><span>4 רבעוניים</span></div>
+    </div>
+    <span class="rm-badge">GRI 203</span><span class="rm-badge" style="margin-right:.5rem;background:#eef2ff;color:#4f46e5">UN SDGs</span><span class="rm-badge" style="margin-right:.5rem;background:#fff3e0;color:#b45309">ESG Grade A</span>`}
+};
+function openReportModal(type){const d=reportData[type];if(!d)return;document.getElementById('report-modal-content').innerHTML=`<div class="rm-header"><div class="rm-logo">ImpactPlatform</div><div class="rm-title">${d.title}</div><div class="rm-sub">${d.sub}</div></div>${d.html}<div class="rm-footer">דוח זה הופק אוטומטית על ידי ImpactPlatform · ${new Date().toLocaleDateString('he-IL')}</div>`;document.getElementById('report-modal').style.display='flex';}
+function closeReportModal(){document.getElementById('report-modal').style.display='none';}
 const regions=[{name:'ירושלים',lat:31.768,lng:35.214,inv:85000,kids:180,ws:8,color:'#1a3a5c'},{name:'תל אביב',lat:32.085,lng:34.781,inv:120000,kids:280,ws:12,color:'#0d7c66'},{name:'חיפה',lat:32.794,lng:34.989,inv:75000,kids:160,ws:7,color:'#e8a020'},{name:'צפון',lat:32.900,lng:35.500,inv:60000,kids:130,ws:5,color:'#9b59b6'},{name:'דרום',lat:31.252,lng:34.791,inv:45000,kids:90,ws:4,color:'#d94f4f'},{name:'מרכז',lat:32.086,lng:34.887,inv:95000,kids:200,ws:9,color:'#1a9c6e'}];
 function showRegion(r){document.querySelectorAll('.region-card').forEach(c=>c.classList.remove('active'));const c=document.getElementById('rc-'+r.name);if(c)c.classList.add('active');document.getElementById('region-detail').innerHTML=`<div style="border-right:4px solid ${r.color};padding-right:.75rem;margin-bottom:.5rem"><strong style="font-size:1rem">${r.name}</strong><div style="font-size:.8rem;color:var(--muted)">Q2 2026</div></div><div class="rd-kpis"><div class="rd-kpi"><strong>₪${(r.inv/1000).toFixed(0)}K</strong><span>השקעה</span></div><div class="rd-kpi"><strong>${r.kids}</strong><span>ילדים</span></div><div class="rd-kpi"><strong>${r.ws}</strong><span>סדנאות</span></div><div class="rd-kpi"><strong>₪${Math.round(r.inv/r.kids)}</strong><span>לילד</span></div></div>`;}
 function initMap(){window._mapInit=true;const map=L.map('map-el').setView([31.8,34.9],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:12}).addTo(map);const cards=document.getElementById('region-cards');regions.forEach(r=>{const circle=L.circle([r.lat,r.lng],{color:r.color,fillColor:r.color,fillOpacity:.5,radius:Math.sqrt(r.inv/1000)*1500,weight:2}).addTo(map);circle.bindTooltip(`<strong>${r.name}</strong><br>₪${(r.inv/1000).toFixed(0)}K`,{permanent:false,direction:'top'});circle.on('click',()=>showRegion(r));const div=document.createElement('div');div.className='region-card';div.id='rc-'+r.name;div.innerHTML=`<div class="rc-dot" style="background:${r.color}"></div><div><div class="rc-name">${r.name}</div><div class="rc-inv">₪${(r.inv/1000).toFixed(0)}K · ${r.ws} סדנאות</div></div>`;div.onclick=()=>showRegion(r);cards.appendChild(div);});}
