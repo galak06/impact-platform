@@ -35,6 +35,64 @@ header{background:linear-gradient(135deg,#0f2217 0%,#1a3a5c 100%);color:#fff;pad
 .flow-badge{text-align:center;margin-top:.35rem;font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:10px;display:inline-block}
 .fb-client{background:#e0f5f1;color:var(--teal)}.fb-us{background:#dbeafe;color:var(--blue)}.fb-result{background:#dcfce7;color:var(--green)}
 @media(max-width:700px){.flow{grid-template-columns:1fr;}.flow-arrow{transform:rotate(90deg);padding:.25rem 0;}}
+
+/* ── Mobile Responsiveness ── */
+@media(max-width:768px){
+  /* Prevent horizontal overflow */
+  body{overflow-x:hidden;width:100%}
+  *{max-width:100%}
+
+  /* Header */
+  header{padding:0 1rem;height:auto;min-height:56px;flex-wrap:wrap;gap:.5rem;padding-top:.5rem;padding-bottom:.5rem}
+  header>div:first-child span{font-size:.75rem}
+  .logo{font-size:1.1rem}
+
+  /* Main layout */
+  .main{padding:1.5rem 1rem}
+
+  /* Hero */
+  .hero{margin-bottom:2rem}
+  .hero h1{font-size:1.8rem;letter-spacing:-.3px}
+  .hero p{font-size:.9rem;margin-bottom:1.25rem}
+  .hero-stats{max-width:100%}
+  .hs{padding:.65rem .75rem}
+  .hs strong{font-size:1.4rem}
+  .hs span{font-size:.7rem}
+
+  /* Entry cards — single column, full width */
+  .entry-grid{grid-template-columns:1fr;gap:1rem;max-width:100%;margin-bottom:2rem}
+  .entry-card{padding:1.75rem 1.25rem;border-radius:14px}
+  .entry-icon{font-size:2.4rem}
+  .entry-title{font-size:1.1rem}
+  .entry-sub{font-size:.85rem}
+
+  /* Buttons — full width, min-height 48px */
+  .entry-btn{width:100%;min-height:48px;padding:.75rem 1rem;font-size:.95rem;border-radius:10px;display:block}
+
+  /* Section headings */
+  .sect h2{font-size:1.15rem}
+  .sect p{font-size:.86rem}
+  .sect{margin-bottom:2rem}
+
+  /* Value cards — single column */
+  .val-grid{grid-template-columns:1fr}
+  .val-card{padding:1.1rem 1rem}
+  .val-icon{font-size:1.6rem}
+  .val-title{font-size:.88rem}
+  .val-sub{font-size:.78rem}
+
+  /* Flow section */
+  .flow{grid-template-columns:1fr}
+  .flow-arrow{transform:rotate(90deg);padding:.25rem 0}
+  .flow-header{font-size:.78rem}
+  .fs-icon{font-size:1.1rem}
+  .fs-title{font-size:.78rem}
+  .fs-sub{font-size:.7rem}
+  .flow-badge{font-size:.68rem}
+
+  /* Toast — full width on mobile */
+  .toast{left:.75rem;right:.75rem;min-width:unset}
+}
 .hero{text-align:center;margin-bottom:3rem}
 .hero h1{font-size:2.8rem;font-weight:900;margin-bottom:.75rem;background:linear-gradient(135deg,#0f2217 0%,var(--teal) 60%,#2d9e78 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;letter-spacing:-.5px}
 .hero p{font-size:1rem;color:var(--muted);max-width:500px;margin:0 auto 1.75rem;line-height:1.7}
@@ -61,6 +119,21 @@ header{background:linear-gradient(135deg,#0f2217 0%,#1a3a5c 100%);color:#fff;pad
 .toast.show{transform:translateY(0);opacity:1}
 .toast-info{background:#1a3a5c}
 @media(max-width:600px){.entry-grid{grid-template-columns:1fr}}
+
+/* ── Transparency value proposition ── */
+.transp-vp{text-align:center;margin-bottom:2.75rem}
+.transp-vp h1{font-size:2.2rem;font-weight:900;letter-spacing:-.5px;color:var(--blue);margin-bottom:.65rem;line-height:1.2}
+.transp-vp .transp-sub{font-size:1rem;color:var(--muted);max-width:560px;margin:0 auto 1.5rem;line-height:1.7}
+.transp-badges{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.transp-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem 1rem;border-radius:999px;font-size:.85rem;font-weight:800;letter-spacing:.1px}
+.tb-approved{background:#e0f5f1;color:var(--teal);border:1.5px solid rgba(13,124,102,.25)}
+.tb-sroi{background:#eaf0fb;color:var(--blue);border:1.5px solid rgba(26,58,92,.2)}
+.tb-report{background:#fdf3e1;color:var(--gold);border:1.5px solid rgba(212,130,10,.25)}
+@media(max-width:768px){
+  .transp-vp h1{font-size:1.55rem}
+  .transp-vp .transp-sub{font-size:.88rem}
+  .transp-badge{font-size:.8rem;padding:.4rem .85rem}
+}
 </style>
 </head>
 <body>
@@ -83,6 +156,17 @@ header{background:linear-gradient(135deg,#0f2217 0%,#1a3a5c 100%);color:#fff;pad
       <div class="hs"><strong>1,240</strong><span>ילדים</span></div>
       <div class="hs"><strong>38</strong><span>סדנאות פעילות</span></div>
       <div class="hs"><strong>24</strong><span>ספקים מאושרים</span></div>
+    </div>
+  </div>
+
+  <!-- Transparency value proposition -->
+  <div class="transp-vp">
+    <h1>השקיפות שהדירקטוריון שלכם מחפש</h1>
+    <p class="transp-sub">הפכו את ה-CSR שלכם להוכחה מדידה — ספקים מאומתים, מדדי אימפקט, ודוחות מוכנים לבורסה</p>
+    <div class="transp-badges">
+      <span class="transp-badge tb-approved">✓ ספקים מאושרים</span>
+      <span class="transp-badge tb-sroi">✓ SROI מדיד</span>
+      <span class="transp-badge tb-report">✓ דיווח שקוף</span>
     </div>
   </div>
 

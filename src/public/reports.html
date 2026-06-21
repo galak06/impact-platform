@@ -54,6 +54,33 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 .toast.info{background:var(--blue);}
 .toast.success{background:var(--teal);}
+.compliance-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;color:var(--teal);background:#e8f5f1;border:1px solid #b2ddd4;border-radius:20px;padding:.25rem .85rem;white-space:nowrap;}
+
+@media (max-width: 768px) {
+  body{overflow-x:hidden;}
+  header{padding:0 1rem;height:auto;flex-wrap:wrap;gap:.5rem;padding-top:.5rem;padding-bottom:.5rem;}
+  nav{flex-wrap:wrap;gap:.4rem;order:2;width:100%;}
+  nav a{font-size:.78rem;padding:.3rem .45rem;}
+  .header-left{order:1;}
+  .page{padding:1rem 1rem 2rem;}
+  .page-title{font-size:1.2rem;}
+  .page-subtitle{font-size:.82rem;}
+  .client-banner{flex-direction:column;align-items:flex-start;gap:.4rem;}
+  .sroi-card{flex-direction:column;align-items:flex-start;gap:1rem;padding:1.25rem 1rem;}
+  .sroi-num{font-size:2.2rem;}
+  .sroi-stats{gap:1rem;width:100%;}
+  .ss{flex:1;min-width:70px;}
+  .ss strong{font-size:1.05rem;}
+  .reports-grid{grid-template-columns:1fr;}
+  .report-card{flex-wrap:wrap;gap:.75rem;}
+  .report-actions{flex-direction:row;align-items:center;width:100%;justify-content:space-between;}
+  .btn-sm-r{min-height:48px;padding:.5rem 1rem;font-size:.85rem;}
+  .export-box{flex-direction:column;align-items:flex-start;gap:.75rem;}
+  .export-box div[style]{width:100%;}
+  .export-box div[style] .btn,
+  .export-box .btn{width:100%;min-height:48px;font-size:.9rem;}
+  .export-box div[style]{display:flex !important;flex-direction:column !important;gap:.6rem !important;width:100%;}
+}
 </style>
 </head>
 <body>
@@ -82,7 +109,7 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <span class="cb-badge">לקוח פעיל</span>
   </div>
 
-  <div class="page-title">דוחות ESG</div>
+  <div class="page-title">דוחות שקיפות ואחריות תאגידית</div>
   <div class="page-subtitle">דוחות אחריות חברתית ומדידת ערך חברתי לפי תקן GRI 203</div>
 
   <div class="sroi-card">
@@ -90,6 +117,7 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
       <div class="sroi-num">3.9x</div>
       <div class="sroi-label">יחס SROI — Q2 2026</div>
       <div class="sroi-sub">על כל ₪1 שהושקע נוצרו ₪3.9 של ערך חברתי</div>
+      <div class="sroi-sub" style="margin-top:.4rem;font-weight:700;color:var(--gold);">כל ₪1 השקעה = ₪3.2 ערך חברתי מוכח</div>
     </div>
     <div class="sroi-stats">
       <div class="ss"><strong>₪480K</strong><span>השקעה</span></div>
@@ -103,7 +131,7 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <div class="report-card">
       <div class="report-icon">📊</div>
       <div class="report-info">
-        <div class="report-title">דוח SROI רבעוני — Q2 2026</div>
+        <div class="report-title">דוח שקיפות לבעלי עניין — Q2 2026</div>
         <div class="report-meta">מתודולוגיית Social Value International · GRI 203</div>
         <div class="report-date">הופק: 20 יוני 2026</div>
       </div>
@@ -115,8 +143,8 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <div class="report-card">
       <div class="report-icon">📋</div>
       <div class="report-info">
-        <div class="report-title">דוח פעילות סדנאות — יוני 2026</div>
-        <div class="report-meta">סיכום סדנאות ומשתתפים</div>
+        <div class="report-title">דוח השפעה קהילתית — יוני 2026</div>
+        <div class="report-meta">סיכום סדנאות ומשתתפים · GRI 203</div>
         <div class="report-date">הופק: 15 יוני 2026</div>
       </div>
       <div class="report-actions">
@@ -127,8 +155,8 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <div class="report-card">
       <div class="report-icon">🌱</div>
       <div class="report-info">
-        <div class="report-title">דוח ESG שנתי — 2025</div>
-        <div class="report-meta">קיימות ואחריות חברתית</div>
+        <div class="report-title">דוח ESG — מוכן להגשה לבורסה · 2025</div>
+        <div class="report-meta">קיימות ואחריות חברתית · GRI 203 · CSRD</div>
         <div class="report-date">הופק: 1 ינואר 2026</div>
       </div>
       <div class="report-actions">
@@ -139,7 +167,7 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <div class="report-card">
       <div class="report-icon">⏳</div>
       <div class="report-info">
-        <div class="report-title">דוח SROI רבעוני — Q3 2026</div>
+        <div class="report-title">דוח GRI 203 — השפעה כלכלית עקיפה · Q3 2026</div>
         <div class="report-meta">בהכנה</div>
         <div class="report-date">צפוי: ספטמבר 2026</div>
       </div>
@@ -153,6 +181,9 @@ nav a.active{color:#fff;border-bottom:2px solid var(--gold);}
     <div>
       <strong>ייצוא מותאם אישית</strong>
       <p>ייצא נתונים לפורמט GRI 203, UN SDGs, או Excel לדוח ESG של הארגון שלך</p>
+      <div style="margin-top:.6rem;">
+        <span class="compliance-badge">✓ תואם CSRD | GRI 203 | בורסת ת"א</span>
+      </div>
     </div>
     <div style="display:flex;gap:.75rem;flex-wrap:wrap">
       <button class="btn" onclick="showToast('מייצא דוח GRI 203...','info')">GRI 203</button>
