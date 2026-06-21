@@ -82,64 +82,64 @@ main{max-width:1100px;margin:0 auto;padding:2rem 1.25rem;}
   </div>
   <span class="cb-badge">לקוח פעיל</span>
 </div>
-  <div class="page-title">סדנאות זמינות</div>
-  <div class="page-subtitle">בחרו סדנה, קראו פרטים והגישו בקשת הזמנה</div>
+  <div class="page-title">סדנאות מותאמות</div>
+  <div class="page-subtitle">כל הסדנאות מותאמות מלאה לצרכים מיוחדים ומועברות על ידי מדריכים מוסמכים</div>
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filter('all',this)">הכל</button>
     <button class="filter-btn" onclick="filter('art',this)">🎨 יצירה</button>
-    <button class="filter-btn" onclick="filter('sport',this)">⚽ ספורט</button>
+    <button class="filter-btn" onclick="filter('sport',this)">♿ ספורט</button>
     <button class="filter-btn" onclick="filter('tech',this)">💻 טכנולוגיה</button>
     <button class="filter-btn" onclick="filter('nature',this)">🌿 טבע</button>
-    <button class="filter-btn" onclick="filter('music',this)">🎵 מוזיקה</button>
+    <button class="filter-btn" onclick="filter('music',this)">🎵 טיפול</button>
   </div>
   <div class="ws-grid" id="ws-grid">
-    <div class="ws-card" data-cat="art" onclick="openBook('סדנת יצירה ואמנות','מרכז יצירה תל אביב','180','50','🎨','art')">
-      <div class="ws-header"><span class="ws-icon">🎨</span><span class="ws-cat-badge">יצירה ואמנות</span></div>
-      <div class="ws-title">סדנת יצירה ואמנות</div>
-      <div class="ws-provider">מרכז יצירה תל אביב</div>
-      <div class="ws-desc">סדנה יצירתית הכוללת ציור, פיסול וטכניקות אמנות מגוונות. מותאמת לכל גיל.</div>
-      <div class="ws-details"><span>⏱ 3 שעות</span><span>👧 6–14</span><span>👥 עד 50 ילדים</span><span>📍 תל אביב</span></div>
-      <div class="ws-footer"><span class="ws-price">₪180 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('סדנת יצירה ואמנות','מרכז יצירה תל אביב','180','50','🎨','art')">הזמן ←</button></div>
+    <div class="ws-card" data-cat="art" onclick="openBook('אמנות מותאמת','מרכז נגישות ויצירה','180','25','🎨','art')">
+      <div class="ws-header"><span class="ws-icon">🎨</span><span class="ws-cat-badge">יצירה מותאמת</span></div>
+      <div class="ws-title">אמנות מותאמת</div>
+      <div class="ws-provider">מרכז נגישות ויצירה</div>
+      <div class="ws-desc">סדנת אמנות מותאמת לילדים עם לקויות שונות — עיצוב, ציור ופיסול בגישה טיפולית.</div>
+      <div class="ws-details"><span>⏱ 3 שעות</span><span>♿ מותאם</span><span>👥 עד 25 ילדים</span><span>📍 תל אביב</span></div>
+      <div class="ws-footer"><span class="ws-price">₪180 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('אמנות מותאמת','מרכז נגישות ויצירה','180','25','🎨','art')">הזמן ←</button></div>
     </div>
-    <div class="ws-card" data-cat="sport" onclick="openBook('סדנת ספורט ותנועה','אקדמיה ספורטיבית','150','70','⚽','sport')">
-      <div class="ws-header"><span class="ws-icon">⚽</span><span class="ws-cat-badge">ספורט</span></div>
-      <div class="ws-title">סדנת ספורט ותנועה</div>
-      <div class="ws-provider">אקדמיה ספורטיבית</div>
-      <div class="ws-desc">פעילות גופנית, משחקי קבוצה ואתגרי ספורט מגוונים לילדים ובני נוער.</div>
-      <div class="ws-details"><span>⏱ 2.5 שעות</span><span>👧 5–16</span><span>👥 עד 70 ילדים</span><span>📍 רמת גן</span></div>
-      <div class="ws-footer"><span class="ws-price">₪150 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('סדנת ספורט ותנועה','אקדמיה ספורטיבית','150','70','⚽','sport')">הזמן ←</button></div>
+    <div class="ws-card" data-cat="sport" onclick="openBook('ספורט מותאם','ספורט בלב אחד','150','30','♿','sport')">
+      <div class="ws-header"><span class="ws-icon">♿</span><span class="ws-cat-badge">ספורט מותאם</span></div>
+      <div class="ws-title">ספורט מותאם</div>
+      <div class="ws-provider">ספורט בלב אחד</div>
+      <div class="ws-desc">פעילות ספורטיבית מותאמת לכיסאות גלגלים ולקויות מוטוריות — כדורסל, עגלות מגלשה ועוד.</div>
+      <div class="ws-details"><span>⏱ 2.5 שעות</span><span>♿ נגיש לכסאות גלגלים</span><span>👥 עד 30 ילדים</span><span>📍 רמת גן</span></div>
+      <div class="ws-footer"><span class="ws-price">₪150 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('ספורט מותאם','ספורט בלב אחד','150','30','♿','sport')">הזמן ←</button></div>
     </div>
-    <div class="ws-card" data-cat="tech" onclick="openBook('סדנת טכנולוגיה וקוד','מגמת קוד','220','30','💻','tech')">
-      <div class="ws-header"><span class="ws-icon">💻</span><span class="ws-cat-badge">טכנולוגיה</span></div>
-      <div class="ws-title">סדנת טכנולוגיה וקוד</div>
-      <div class="ws-provider">מגמת קוד</div>
-      <div class="ws-desc">תכנות בסיסי, רובוטיקה ועולם הדיגיטל — הכנה לעתיד הטכנולוגי.</div>
-      <div class="ws-details"><span>⏱ 4 שעות</span><span>👧 10–18</span><span>👥 עד 30 ילדים</span><span>📍 הרצליה</span></div>
-      <div class="ws-footer"><span class="ws-price">₪220 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('סדנת טכנולוגיה וקוד','מגמת קוד','220','30','💻','tech')">הזמן ←</button></div>
+    <div class="ws-card" data-cat="tech" onclick="openBook('טכנולוגיה נגישה','טכנולוגיה לכולם','220','20','💻','tech')">
+      <div class="ws-header"><span class="ws-icon">💻</span><span class="ws-cat-badge">טכנולוגיה נגישה</span></div>
+      <div class="ws-title">טכנולוגיה נגישה</div>
+      <div class="ws-provider">טכנולוגיה לכולם</div>
+      <div class="ws-desc">כלים דיגיטליים נגישים, תקשורת תומכת-חלופית (AAC) ויצירה עם בינה מלאכותית.</div>
+      <div class="ws-details"><span>⏱ 4 שעות</span><span>♿ AAC נכלל</span><span>👥 עד 20 ילדים</span><span>📍 הרצליה</span></div>
+      <div class="ws-footer"><span class="ws-price">₪220 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('טכנולוגיה נגישה','טכנולוגיה לכולם','220','20','💻','tech')">הזמן ←</button></div>
     </div>
-    <div class="ws-card" data-cat="nature" onclick="openBook('סדנת חינוך סביבתי','גן טבע ירושלים','160','45','🌿','nature')">
-      <div class="ws-header"><span class="ws-icon">🌿</span><span class="ws-cat-badge">טבע וסביבה</span></div>
-      <div class="ws-title">סדנת חינוך סביבתי</div>
-      <div class="ws-provider">גן טבע ירושלים</div>
-      <div class="ws-desc">חקר הטבע, אקולוגיה וגינון עירוני — חיבור לסביבה ולמחזור החיים.</div>
-      <div class="ws-details"><span>⏱ 3 שעות</span><span>👧 5–14</span><span>👥 עד 45 ילדים</span><span>📍 ירושלים</span></div>
-      <div class="ws-footer"><span class="ws-price">₪160 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('סדנת חינוך סביבתי','גן טבע ירושלים','160','45','🌿','nature')">הזמן ←</button></div>
+    <div class="ws-card" data-cat="nature" onclick="openBook('טיפול בטבע','גן טיפולי','160','20','🌳','nature')">
+      <div class="ws-header"><span class="ws-icon">🌳</span><span class="ws-cat-badge">טבע טיפולי</span></div>
+      <div class="ws-title">טיפול בטבע</div>
+      <div class="ws-provider">גן טיפולי</div>
+      <div class="ws-desc">חוויות טבע טיפוליות — גינון, בעלי חיים ופעילויות חושיות בסביבה שקטה ומוגנת.</div>
+      <div class="ws-details"><span>⏱ 3 שעות</span><span>♿ סביבה חושית</span><span>👥 עד 20 ילדים</span><span>📍 ירושלים</span></div>
+      <div class="ws-footer"><span class="ws-price">₪160 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('טיפול בטבע','גן טיפולי','160','20','🌳','nature')">הזמן ←</button></div>
     </div>
-    <div class="ws-card" data-cat="music" onclick="openBook('סדנת מוזיקה','סטודיו מוזיקלי','195','35','🎵','music')">
-      <div class="ws-header"><span class="ws-icon">🎵</span><span class="ws-cat-badge">מוזיקה</span></div>
-      <div class="ws-title">סדנת מוזיקה</div>
-      <div class="ws-provider">סטודיו מוזיקלי</div>
-      <div class="ws-desc">נגינה, שירה ויצירה מוזיקלית בצוות — חוויה קולקטיבית ומשמחת.</div>
-      <div class="ws-details"><span>⏱ 2 שעות</span><span>👧 6–16</span><span>👥 עד 35 ילדים</span><span>📍 חיפה</span></div>
-      <div class="ws-footer"><span class="ws-price">₪195 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('סדנת מוזיקה','סטודיו מוזיקלי','195','35','🎵','music')">הזמן ←</button></div>
+    <div class="ws-card" data-cat="music" onclick="openBook('מוזיקותרפיה','מוזיקה לנשמה','195','20','🎵','music')">
+      <div class="ws-header"><span class="ws-icon">🎵</span><span class="ws-cat-badge">מוזיקותרפיה</span></div>
+      <div class="ws-title">מוזיקותרפיה</div>
+      <div class="ws-provider">מוזיקה לנשמה</div>
+      <div class="ws-desc">טיפול במוזיקה לילדים עם אוטיזם ולקויות שמיעה — קצב, שיר ושפה מוזיקלית.</div>
+      <div class="ws-details"><span>⏱ 2 שעות</span><span>♿ מותאם אוטיזם</span><span>👥 עד 20 ילדים</span><span>📍 חיפה</span></div>
+      <div class="ws-footer"><span class="ws-price">₪195 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('מוזיקותרפיה','מוזיקה לנשמה','195','20','🎵','music')">הזמן ←</button></div>
     </div>
-    <div class="ws-card" data-cat="art" onclick="openBook('סדנת תרבות וקריאה','חווית הספר','140','40','📚','art')">
-      <div class="ws-header"><span class="ws-icon">📚</span><span class="ws-cat-badge">תרבות</span></div>
-      <div class="ws-title">סדנת תרבות וקריאה</div>
-      <div class="ws-provider">חווית הספר</div>
-      <div class="ws-desc">עולם הסיפור, כתיבה יצירתית ואיורים — פתיחת אהבה לספרות.</div>
-      <div class="ws-details"><span>⏱ 2.5 שעות</span><span>👧 6–12</span><span>👥 עד 40 ילדים</span><span>📍 באר שבע</span></div>
-      <div class="ws-footer"><span class="ws-price">₪140 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('סדנת תרבות וקריאה','חווית הספר','140','40','📚','art')">הזמן ←</button></div>
+    <div class="ws-card" data-cat="art" onclick="openBook('דרמה-טיפולית','תאטרון מחוות','140','25','🎭','art')">
+      <div class="ws-header"><span class="ws-icon">🎭</span><span class="ws-cat-badge">דרמה טיפולית</span></div>
+      <div class="ws-title">דרמה-טיפולית</div>
+      <div class="ws-provider">תאטרון מחוות</div>
+      <div class="ws-desc">סדנת תאטרון ושפת גוף לחיזוק ביטחון עצמי ותקשורת — מותאמת לכבדי שמיעה ואוטיזם.</div>
+      <div class="ws-details"><span>⏱ 2.5 שעות</span><span>♿ שפת סימנים</span><span>👥 עד 25 ילדים</span><span>📍 באר שבע</span></div>
+      <div class="ws-footer"><span class="ws-price">₪140 לילד</span><button class="ws-btn" onclick="event.stopPropagation();openBook('דרמה-טיפולית','תאטרון מחוות','140','25','🎭','art')">הזמן ←</button></div>
     </div>
   </div>
 </main>
