@@ -1,1 +1,157 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"bb49d80f67f09293f4e25c19d7500d690ed94abd"}}
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>יעדים — Impact Platform</title>
+<style>
+:root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
+[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);}
+header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+.header-left{display:flex;align-items:center;gap:1rem;}
+.logo{font-size:1.25rem;font-weight:700;}
+.logo span{color:var(--gold);}
+.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem;line-height:1;}
+header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start:1.5rem;font-size:.9rem;transition:color .2s;}
+header nav a:hover,header nav a.active{color:#fff;}
+header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
+.page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.page-title{font-size:1.6rem;font-weight:700;margin-bottom:.25rem;}
+.page-subtitle{color:var(--muted);font-size:.95rem;}
+.btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:.6rem 1.4rem;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s ease;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.goals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2rem;}
+.goal-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .25s ease;cursor:default;}
+.goal-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.goal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.goal-title{font-size:1rem;font-weight:700;}
+.goal-badge{font-size:.75rem;font-weight:700;padding:.2rem .65rem;border-radius:20px;}
+.goal-on-track{background:#e8f5f1;color:#0d7c66;}
+.goal-achieved{background:#fff3e0;color:#e8a020;}
+.goal-values{font-size:1.4rem;font-weight:800;margin-bottom:.75rem;}
+.goal-current{color:var(--text);}
+.goal-sep{color:var(--muted);margin:0 .25rem;}
+.goal-target{color:var(--muted);font-size:1rem;font-weight:600;}
+.progress-bar{height:10px;background:var(--border);border-radius:5px;overflow:hidden;margin-bottom:.4rem;}
+.progress-fill{height:100%;border-radius:5px;background:var(--blue);transition:width .8s ease;}
+.progress-fill.teal{background:var(--teal);}
+.progress-fill.gold{background:var(--gold);}
+.progress-fill.green{background:var(--green);}
+.goal-pct{font-size:.82rem;color:var(--muted);text-align:left;}
+.summary-card{background:linear-gradient(135deg,#1a3a5c,#0d7c66);color:#fff;border-radius:12px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;}
+.summary-icon{font-size:2.5rem;}
+.summary-card strong{font-size:1.1rem;display:block;margin-bottom:.25rem;}
+.summary-card p{font-size:.88rem;opacity:.85;}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skeleton{background:linear-gradient(90deg,#e0e5f0 25%,#f0f4fa 50%,#e0e5f0 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:100px;margin-bottom:1rem;}
+.toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-success{background:#1a9c6e;}
+.toast-info{background:#1a3a5c;}
+.toast-warning{background:#e8a020;color:#1e2740;}
+</style>
+</head>
+<body>
+<script>
+(function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.addEventListener('DOMContentLoaded',function(){document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';});})();
+</script>
+<header>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
+  <nav>
+    <a href="index.html">בית</a>
+    <a href="dashboard.html">מדדי אימפקט</a>
+    <a href="goals.html" class="active">יעדים</a>
+    <a href="order.html">הזמנות</a>
+    <a href="admin.html">ניהול</a>
+  </nav>
+</header>
+<main class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;">
+    <div>
+      <div class="page-title">יעדים רבעוניים — Q2/2026</div>
+      <div class="page-subtitle">מעקב אחר יעדי האימפקט לרבעון השני</div>
+    </div>
+    <button class="btn" onclick="showToast('יעד חדש יתווסף בקרוב','info')">+ הוסף יעד</button>
+  </div>
+  <div id="skeleton-zone"></div>
+  <div class="goals-grid" id="goals-content" style="opacity:0">
+    <div class="goal-card">
+      <div class="goal-header">
+        <div class="goal-title">ילדים פעילים</div>
+        <div class="goal-badge goal-on-track">בנתיב ✓</div>
+      </div>
+      <div class="goal-values">
+        <span class="goal-current">1,240</span>
+        <span class="goal-sep">/</span>
+        <span class="goal-target">1,500</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:82.7%"></div></div>
+      <div class="goal-pct">82.7%</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-header">
+        <div class="goal-title">סדנאות שהתקיימו</div>
+        <div class="goal-badge goal-on-track">בנתיב ✓</div>
+      </div>
+      <div class="goal-values">
+        <span class="goal-current">38</span>
+        <span class="goal-sep">/</span>
+        <span class="goal-target">45</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill teal" style="width:84.4%"></div></div>
+      <div class="goal-pct">84.4%</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-header">
+        <div class="goal-title">שעות פנאי</div>
+        <div class="goal-badge goal-on-track">בנתיב ✓</div>
+      </div>
+      <div class="goal-values">
+        <span class="goal-current">9,680</span>
+        <span class="goal-sep">/</span>
+        <span class="goal-target">12,000</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill gold" style="width:80.7%"></div></div>
+      <div class="goal-pct">80.7%</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-header">
+        <div class="goal-title">יחס SROI (≥3.5x)</div>
+        <div class="goal-badge goal-achieved">הושג! 🎉</div>
+      </div>
+      <div class="goal-values">
+        <span class="goal-current">3.9x</span>
+        <span class="goal-sep">/</span>
+        <span class="goal-target">3.5x</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+      <div class="goal-pct">100%</div>
+    </div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-icon">🎯</div>
+    <div>
+      <strong>3 מתוך 4 יעדים בנתיב</strong>
+      <p>יעד ה-SROI הושג במלואו. שאר היעדים צפויים להסתיים עד סוף יוני 2026.</p>
+    </div>
+  </div>
+</main>
+<script>
+function showToast(msg,type){type=type||'success';const t=document.createElement('div');t.className='toast toast-'+type;t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.classList.add('show');},10);setTimeout(function(){t.classList.remove('show');setTimeout(function(){t.remove();},300);},3000);}
+
+document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
+
+window.addEventListener('DOMContentLoaded',function(){
+  const zone=document.getElementById('skeleton-zone');
+  const content=document.getElementById('goals-content');
+  for(let i=0;i<4;i++){const s=document.createElement('div');s.className='skeleton';zone.appendChild(s);}
+  setTimeout(function(){zone.style.display='none';content.style.opacity=1;},600);
+});
+</script>
+</body>
+</html>

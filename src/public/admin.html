@@ -1,1 +1,154 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"ecd96c50c858ef35cc4470ed020207d821482677"}}
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ניהול ספקים – ImpactPlatform</title>
+<style>
+:root{--blue:#1a3a5c;--teal:#0d7c66;--gold:#e8a020;--light:#f4f7fb;--border:#dde3ee;--text:#1e2740;--muted:#6b7a9a;--white:#ffffff;--green:#1a9c6e;--red:#d94f4f;}
+[data-theme="dark"]{--light:#0f1623;--white:#1a2235;--text:#e8ecf4;--muted:#8a99b8;--border:#2a3550;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);}
+header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+.header-left{display:flex;align-items:center;gap:1rem;}
+.logo{font-size:1.25rem;font-weight:700;}
+.logo span{color:var(--gold);}
+.theme-btn{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:.25rem;line-height:1;}
+header nav a{color:rgba(255,255,255,.8);text-decoration:none;margin-inline-start:1.5rem;font-size:.9rem;transition:color .2s;}
+header nav a:hover,header nav a.active{color:#fff;}
+header nav a.active{border-bottom:2px solid var(--gold);padding-bottom:2px;}
+.page{max-width:1200px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.page-title{font-size:1.6rem;font-weight:700;color:var(--blue);margin-bottom:.25rem;}
+[data-theme="dark"] .page-title{color:var(--text);}
+.page-subtitle{color:var(--muted);font-size:.95rem;margin-bottom:1.5rem;}
+.toolbar{display:flex;gap:1rem;margin-bottom:1.5rem;align-items:center;}
+.search-input{border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-size:.9rem;flex:1;background:var(--white);color:var(--text);outline:none;}
+.search-input:focus{border-color:var(--teal);}
+.btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:.6rem 1.2rem;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s ease;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all .25s ease;}
+table{width:100%;border-collapse:collapse;font-size:.9rem;}
+th{text-align:right;padding:.75rem 1rem;border-bottom:2px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+td{padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text);}
+tr:hover td{background:rgba(26,58,92,.04);}
+.badge{font-size:.75rem;font-weight:700;padding:.25rem .7rem;border-radius:20px;}
+.badge-active{background:#e8f5f1;color:#0d7c66;}
+.badge-pending{background:#fff3e0;color:#e8a020;}
+.actions{display:flex;gap:.5rem;}
+.btn-sm{padding:.3rem .75rem;font-size:.8rem;border-radius:6px;border:none;cursor:pointer;font-weight:600;transition:all .2s ease;}
+.btn-sm:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.btn-success{background:#1a9c6e;color:#fff;}
+.btn-warn{background:#e8a020;color:#1e2740;}
+.btn-danger{background:#d94f4f;color:#fff;}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skeleton{background:linear-gradient(90deg,#e0e5f0 25%,#f0f4fa 50%,#e0e5f0 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:8px;height:48px;margin-bottom:.5rem;}
+#table-content{transition:opacity .4s ease;}
+.toast{position:fixed;bottom:1.5rem;left:1.5rem;padding:.75rem 1.25rem;border-radius:8px;color:#fff;font-size:.88rem;font-weight:600;transform:translateY(20px);opacity:0;transition:all .3s ease;z-index:9999;min-width:220px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-success{background:#1a9c6e;}
+.toast-info{background:#1a3a5c;}
+.toast-warning{background:#e8a020;color:#1e2740;}
+.toast-error{background:#d94f4f;}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <button class="theme-btn" id="themeBtn" aria-label="החלף מצב">🌙</button>
+    <div class="logo">Impact<span>Platform</span></div>
+  </div>
+  <nav>
+    <a href="index.html">בית</a>
+    <a href="dashboard.html">מדדי אימפקט</a>
+    <a href="goals.html">יעדים</a>
+    <a href="order.html">הזמנות</a>
+    <a href="admin.html" class="active">ניהול</a>
+  </nav>
+</header>
+<div class="page">
+  <div class="page-title">ניהול ספקים</div>
+  <div class="page-subtitle">אשר, השהה ונהל ספקי סדנאות פעילים</div>
+  <div class="toolbar">
+    <input class="search-input" type="text" placeholder="חיפוש ספק..." oninput="filterTable(this.value)">
+    <button class="btn" onclick="showToast('מוסיף ספק חדש...','info')">+ הוסף ספק</button>
+  </div>
+  <div class="card" id="table-wrap">
+    <div id="skeleton-zone">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <div id="table-content" style="opacity:0">
+      <table>
+        <thead><tr><th>ספק</th><th>קטגוריה</th><th>סטטוס</th><th>מאז</th><th>פעולות</th></tr></thead>
+        <tbody id="supplier-body">
+          <tr data-id="1">
+            <td><strong>מרכז יצירה תל אביב</strong></td><td>יצירה ואמנות</td>
+            <td><span class="badge badge-active" id="status-1">פעיל</span></td><td>ינואר 2025</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="approveSupplier(1)">אשר</button>
+              <button class="btn btn-sm btn-warn" onclick="suspendSupplier(1)">השהה</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSupplier(1)">מחק</button>
+            </td>
+          </tr>
+          <tr data-id="2">
+            <td><strong>אקדמיה ספורטיבית</strong></td><td>ספורט ותנועה</td>
+            <td><span class="badge badge-active" id="status-2">פעיל</span></td><td>פברואר 2025</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="approveSupplier(2)">אשר</button>
+              <button class="btn btn-sm btn-warn" onclick="suspendSupplier(2)">השהה</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSupplier(2)">מחק</button>
+            </td>
+          </tr>
+          <tr data-id="3">
+            <td><strong>מגמת קוד</strong></td><td>טכנולוגיה</td>
+            <td><span class="badge badge-pending" id="status-3">ממתין</span></td><td>מרץ 2025</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="approveSupplier(3)">אשר</button>
+              <button class="btn btn-sm btn-warn" onclick="suspendSupplier(3)">השהה</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSupplier(3)">מחק</button>
+            </td>
+          </tr>
+          <tr data-id="4">
+            <td><strong>גן טבע ירושלים</strong></td><td>חינוך סביבתי</td>
+            <td><span class="badge badge-active" id="status-4">פעיל</span></td><td>אפריל 2025</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="approveSupplier(4)">אשר</button>
+              <button class="btn btn-sm btn-warn" onclick="suspendSupplier(4)">השהה</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSupplier(4)">מחק</button>
+            </td>
+          </tr>
+          <tr data-id="5">
+            <td><strong>סטודיו מוזיקלי</strong></td><td>מוזיקה</td>
+            <td><span class="badge badge-pending" id="status-5">ממתין</span></td><td>מאי 2025</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="approveSupplier(5)">אשר</button>
+              <button class="btn btn-sm btn-warn" onclick="suspendSupplier(5)">השהה</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSupplier(5)">מחק</button>
+            </td>
+          </tr>
+          <tr data-id="6">
+            <td><strong>חווית הספר</strong></td><td>תרבות וקריאה</td>
+            <td><span class="badge badge-active" id="status-6">פעיל</span></td><td>יוני 2025</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="approveSupplier(6)">אשר</button>
+              <button class="btn btn-sm btn-warn" onclick="suspendSupplier(6)">השהה</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSupplier(6)">מחק</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+(function(){const s=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeBtn').textContent=s==='dark'?'☀️':'🌙';})();
+document.getElementById('themeBtn').addEventListener('click',function(){const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);this.textContent=n==='dark'?'☀️':'🌙';});
+setTimeout(function(){document.getElementById('skeleton-zone').style.display='none';document.getElementById('table-content').style.opacity='1';},600);
+function showToast(msg,type){type=type||'success';const t=document.createElement('div');t.className='toast toast-'+type;t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.classList.add('show');},10);setTimeout(function(){t.classList.remove('show');setTimeout(function(){t.remove();},300);},3000);}
+function approveSupplier(id){const b=document.getElementById('status-'+id);b.textContent='פעיל';b.className='badge badge-active';showToast('ספק אושר בהצלחה! ✓','success');}
+function suspendSupplier(id){const b=document.getElementById('status-'+id);b.textContent='ממתין';b.className='badge badge-pending';showToast('ספק הושהה','warning');}
+function deleteSupplier(id){document.querySelector('tr[data-id="'+id+'"]').remove();showToast('ספק נמחק','error');}
+function filterTable(q){document.querySelectorAll('#supplier-body tr').forEach(function(row){row.style.display=row.textContent.includes(q)?'':'none';});}
+</script>
+</body>
+</html>
