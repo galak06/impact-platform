@@ -74,7 +74,6 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
   </div>
   <div class="tabs-bar">
     <button class="tab-btn active" onclick="cTab('dashboard',this)">📊 מדדי אימפקט</button>
-    <button class="tab-btn" onclick="cTab('goals',this)">🎯 יעדים</button>
     <button class="tab-btn" onclick="cTab('workshops',this)">🎨 סדנאות</button>
     <button class="tab-btn" onclick="cTab('reports',this)">📋 דוחות</button>
     <button class="tab-btn" onclick="cTab('map',this)">🗺️ מפת אימפקט</button>
@@ -82,7 +81,7 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
 
   <div id="tab-dashboard" class="tab-panel active">
     <div class="sroi-hero">
-      <div><div style="font-size:.85rem;opacity:.75;margin-bottom:.2rem">Social Return on Investment — Q2 2026</div><div style="font-size:3.8rem;font-weight:900;color:var(--gold);line-height:1">3.9x</div><div style="font-size:.95rem;margin:.4rem 0 .2rem">על כל ₪1 שהשקעתם — ₪3.9 ערך חברתי נוצר לקהילה</div><button class="btn" style="margin-top:.6rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);font-size:.82rem;padding:.4rem 1rem" onclick="cTab('reports',document.querySelectorAll('.tab-btn')[3])">📄 צפה בדוח המלא</button></div>
+      <div><div style="font-size:.85rem;opacity:.75;margin-bottom:.2rem">Social Return on Investment — Q2 2026</div><div style="font-size:3.8rem;font-weight:900;color:var(--gold);line-height:1">3.9x</div><div style="font-size:.95rem;margin:.4rem 0 .2rem">על כל ₪1 שהשקעתם — ₪3.9 ערך חברתי נוצר לקהילה</div><button class="btn" style="margin-top:.6rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);font-size:.82rem;padding:.4rem 1rem" onclick="cTab('reports',document.querySelectorAll('.tab-btn')[2])">📄 צפה בדוח המלא</button></div>
       <div class="sroi-stats"><div class="ss"><strong>₪480K</strong><span>השקעה</span></div><div class="ss"><strong>₪1.87M</strong><span>ערך חברתי</span></div><div class="ss"><strong>1,240</strong><span>ילדים</span></div><div class="ss"><strong>9,680</strong><span>שעות פנאי</span></div></div>
     </div>
     <div class="kpi-grid">
@@ -93,7 +92,7 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
     </div>
     <div class="dash-grid">
       <div class="dash-panel">
-        <div class="dp-header"><div class="dp-title">📋 סדנאות אחרונות</div><span class="dp-link" onclick="cTab('workshops',document.querySelectorAll('.tab-btn')[2])">כל הסדנאות →</span></div>
+        <div class="dp-header"><div class="dp-title">📋 סדנאות אחרונות</div><span class="dp-link" onclick="cTab('workshops',document.querySelectorAll('.tab-btn')[1])">כל הסדנאות →</span></div>
         <div class="up-item"><div class="up-date" style="background:var(--teal)"><div class="up-d">18</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">אמנות מותאמת</div><div class="up-meta">מרכז נגישות ויצירה · תל אביב · 25 ילדים</div><span class="up-tag" style="background:#e8f5f1;color:var(--teal)">הושלם ✅</span></div></div>
         <div class="up-item"><div class="up-date" style="background:var(--blue)"><div class="up-d">15</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">ספורט מותאם</div><div class="up-meta">ספורט בלב אחד · רמת גן · 28 ילדים</div><span class="up-tag" style="background:#e8f5f1;color:var(--teal)">הושלם ✅</span></div></div>
         <div class="up-item"><div class="up-date" style="background:#8b5cf6"><div class="up-d">12</div><div class="up-m">יוני</div></div><div class="up-info"><div class="up-title">טכנולוגיה נגישה</div><div class="up-meta">טכנולוגיה לכולם · הרצליה · 20 ילדים</div><span class="up-tag" style="background:#e8f5f1;color:var(--teal)">הושלם ✅</span></div></div>
@@ -109,9 +108,7 @@ header{background:var(--blue);color:#fff;padding:0 2rem;height:64px;display:flex
       </div>
     </div>
     <div style="background:#fff9ec;border:1px solid #f0d48a;border-radius:10px;padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-top:1rem"><span style="font-size:.84rem">⚠️ <strong>פעולה נדרשת:</strong> אישור ממתין לסדנת טיפול בטבע — דדליין 22.06</span><button class="btn-sm" onclick="showToast('פותח פרטי הסדנה...','info')">טפל בזה →</button></div>
-  </div>
-
-  <div id="tab-goals" class="tab-panel">
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
     <div class="goals-hdr">
       <div><div style="font-size:1rem;font-weight:800">יעדים שנתיים 2026 — מעקב חי</div><div style="font-size:.75rem;color:var(--muted)">עודכן: היום, 15:04 · מחצית ראשונה הסתיימה ב-30.06</div></div>
       <div style="display:flex;gap:.35rem;flex-wrap:wrap;align-items:center"><button class="per-btn" onclick="selPer(this)">Q1</button><button class="per-btn" onclick="selPer(this)">Q2</button><button class="per-btn active" onclick="selPer(this)">H1 מצטבר</button><button class="per-btn" onclick="selPer(this)">שנתי</button><button class="btn-sm" onclick="showToast('מייצא לממונים...','info')" style="margin-right:.5rem">📄 ייצוא לממונים</button></div>
